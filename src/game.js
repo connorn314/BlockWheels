@@ -1,5 +1,4 @@
 import Car from "./car";
-import Level from "./level";
 import Track from "./track";
 
 export default class BotWheels {
@@ -45,13 +44,25 @@ export default class BotWheels {
     createTracks(){
         const startingTracks = []
         let firstTrack = new Track(this)
+        firstTrack.firstTrack()
         startingTracks.push(firstTrack)
         return startingTracks
+    }
+
+    regulateTracks(){
+        if (this.tracks[this.tracks.length - 1].hitBox.topRight[0] < this.dimensions.width){
+            let nextTrack = new Track(this)
+            this.tracks.push(nextTrack)
+        } 
+        if (this.tracks[0].hitBox.topRight[0] < 0){
+            this.tracks.shift()
+        }
     }
 
     animateTracks(){
         for (let i = 0; i < this.tracks.length; i++){
             this.tracks[i].animate()
+            this.regulateTracks()
         }
     }
     

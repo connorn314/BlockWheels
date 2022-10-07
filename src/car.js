@@ -4,9 +4,10 @@ import Track from "./track";
 export default class Car extends MovingObject {
     constructor(game){
         super(game);
+        this.positionX = this.dimensions.width / 4
         this.velocityX = CONSTANTS.VEL_X;
         this.velocityY = CONSTANTS.VEL_Y;
-        this.jumpPower = 0;
+        this.jumpPower = .5;
         this.grounded = false;
         
     }
@@ -19,23 +20,23 @@ export default class Car extends MovingObject {
 
     move(){
         this.positionY += this.velocityY;
-        if (this.grounded === false){
+        if (this.grounded === false && this.velocityY < CONSTANTS.TERMINAL_VEL){
             this.velocityY += CONSTANTS.GRAVITY;
         }
     }
 
     preJump(){
-        if (this.jumpPower < 1){
-            this.jumpPower += .25;
+        if (this.jumpPower < 2){
+            this.jumpPower += .5;
         }
     }
 
     jump(){
         if (this.grounded === true){
             this.velocityY = -12 * this.jumpPower;
-            this.jumpPower = 0;
             this.grounded = false;
         }
+        this.jumpPower = .5;
     }
 
 
@@ -54,6 +55,7 @@ export default class Car extends MovingObject {
             if (this.isCollidedWith(this.game.tracks[i])){
                 this.velocityY = 0;
                 this.grounded = true;
+                break 
             } else {
                 this.grounded = false
             }
@@ -65,8 +67,8 @@ export default class Car extends MovingObject {
 }
 
 const CONSTANTS = {
-    GRAVITY: 0.3,
-    TERMINAL_VEL: 10,
+    GRAVITY: 0.8,
+    TERMINAL_VEL: 12,
     CAR_WIDTH: 80,
     CAR_HEIGHT: 50,
     VEL_X: 0,
