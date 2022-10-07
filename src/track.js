@@ -9,9 +9,9 @@ export default class Track extends MovingObject {
     }
 
     animate(){
-        this.drawFlat()
-        this.moveTrack()
-        this.boundBy()
+            this.drawFlat()
+            this.moveTrack()
+            this.boundBy()
     }
 
     drawFlat(){

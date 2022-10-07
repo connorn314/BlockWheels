@@ -25,15 +25,17 @@ export default class Car extends MovingObject {
     }
 
     preJump(){
-        if (this.jumpPower < 1.5){
-            this.jumpPower += .5;
+        if (this.jumpPower < 1){
+            this.jumpPower += .25;
         }
     }
 
     jump(){
-        this.velocityY = -12 * this.jumpPower;
-        this.jumpPower = 0;
-        this.grounded = false;
+        if (this.grounded === true){
+            this.velocityY = -12 * this.jumpPower;
+            this.jumpPower = 0;
+            this.grounded = false;
+        }
     }
 
 
@@ -47,12 +49,14 @@ export default class Car extends MovingObject {
         this.hitBox.bottomRight = [this.positionX + CONSTANTS.CAR_WIDTH, this.positionY + CONSTANTS.CAR_HEIGHT]
     }
 
-    landedOnTrack(track){
-        if (this.isCollidedWith(track)){
-            this.velocityY = 0;
-            this.grounded = true;
-        } else {
-            this.grounded = false
+    landedOnTrack(){
+        for (let i = 0; i < this.game.tracks.length; i++){
+            if (this.isCollidedWith(this.game.tracks[i])){
+                this.velocityY = 0;
+                this.grounded = true;
+            } else {
+                this.grounded = false
+            }
         }
     }
 

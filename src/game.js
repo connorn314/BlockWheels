@@ -22,16 +22,16 @@ export default class BotWheels {
 
     animate() {
         this.drawBackground(this.ctx);
-        this.tracks.animate();
+        this.animateTracks();
         this.car.animate();
-        this.car.landedOnTrack(this.tracks);
+        this.car.landedOnTrack();
         if (this.running === true){
             requestAnimationFrame(this.animate.bind(this));
         }
     }
 
     restart() {
-        this.tracks = new Track(this);
+        this.tracks = this.createTracks();
         this.car = new Car(this);
         this.running = false;
         this.play();
@@ -45,7 +45,14 @@ export default class BotWheels {
     createTracks(){
         const startingTracks = []
         let firstTrack = new Track(this)
-        startingTracks.push()
+        startingTracks.push(firstTrack)
+        return startingTracks
+    }
+
+    animateTracks(){
+        for (let i = 0; i < this.tracks.length; i++){
+            this.tracks[i].animate()
+        }
     }
     
     spaceDown(e){   
