@@ -8,12 +8,17 @@ export default class BotWheels {
             width: canvas.width, 
             height: canvas.height
         };
+
+        this.keyState = {
+            spaceDown: false,
+            spaceRelease: false,
+            leftDown: false,
+            rightDown: false,
+        }
         
-        document.addEventListener('keydown', this.spaceDown.bind(this));
-        document.addEventListener('keyup', this.spaceUp.bind(this));
-        document.addEventListener('keydown', this.leftArrowDown.bind(this));
-        document.addEventListener('keydown', this.rightArrowDown.bind(this));
-        document.addEventListener('keyup', this.arrowUp.bind(this))
+        document.addEventListener('keydown', this.keyDown.bind(this));
+        document.addEventListener('keyup', this.keyUp.bind(this));
+        
 
     }
 
@@ -69,35 +74,28 @@ export default class BotWheels {
             this.regulateTracks()
         }
     }
-    
-    spaceDown(e){   
+    keyDown(e){
         if (e.code === "Space" && this.running === true){
+            this.keyState.spaceDown = true;
             this.car.preJump();
-        }   
-    }
-
-    spaceUp(e){
-        if (e.code === "Space" && this.running === true){
-            this.car.jump();
-        }  
-    }
-
-    leftArrowDown(e){
-        if (e.code === "ArrowLeft" && this.running === true){
-            this.car.rotateCar("left");
-        }   
-    }
-
-    rightArrowDown(e){
-        if (e.code === "ArrowRight" && this.running === true){
-            this.car.rotateCar("right");
-        } 
-    }
-
-    arrowUp(e){
-        if ((e.code === "ArrowRight" || e.code === "ArrowLeft") && this.running === true){
-            this.car.endRotate();
+        } else if (e.code === "ArrowLeft" && this.running === true){
+            this.keyState.leftDown = true;
+        }  else if (e.code === "ArrowRight" && this.running === true){
+            this.keyState.rightDown = true;
         }
     }
+
+    keyUp(e){
+        if (e.code === "Space" && this.running === true){
+            this.keyState.spaceRelease = true;
+            this.car.jump();
+        } else if (e.code === "ArrowLeft" && this.running === true){
+            this.keyState.leftDown = false;
+        } else if (e.code === "ArrowRight" && this.running === true){
+            this.keyState.rightDown = false;
+        }
+        
+    }
+
 }
 

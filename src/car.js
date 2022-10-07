@@ -15,6 +15,7 @@ export default class Car extends MovingObject {
     }
 
     animate(){
+        this.rotateCar();
         this.drawCar();
         this.move();
         this.isBoundBy()
@@ -41,22 +42,18 @@ export default class Car extends MovingObject {
         this.jumpPower = .5;
     }
 
-    rotateCar(direction){
-        if (direction === "left"){
+    rotateCar(){
+        if (this.game.keyState.leftDown === true){
             this.rotation = true
             this.vector += -Math.PI / 16
-        } else {
-            console.log("not left")
+        } else if (this.game.keyState.rightDown === true){
             this.rotation = true
             this.vector += Math.PI / 16
+        } else {
+            this.rotation = false
+            this.vector = 0
         }
     }
-
-    endRotate(){
-        this.vector = 0
-        this.rotation = false
-    }
-
 
     drawCar(){
         this.game.ctx.save()
