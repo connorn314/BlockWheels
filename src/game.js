@@ -42,6 +42,12 @@ export default class BotWheels {
         this.animate();
     }
 
+    createTracks(){
+        const startingTracks = []
+        let firstTrack = new Track(this)
+        startingTracks.push()
+    }
+    
     spaceDown(e){   
         if (e.code === "Space" && this.running === true){
             this.car.preJump();

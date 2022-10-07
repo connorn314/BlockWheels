@@ -11,6 +11,7 @@ export default class Track extends MovingObject {
     animate(){
         this.drawFlat()
         this.moveTrack()
+        this.boundBy()
     }
 
     drawFlat(){
@@ -27,11 +28,8 @@ export default class Track extends MovingObject {
     }
 
     boundBy(){ // we'll just focus on the top line of the track at the moment
-        const bounds = {
-            topLeft: [this.positionX, this.positionY],
-            topRight: [this.positionX + T_CONSTANTS.TRACK_L, this.positionY]
-        }
-        this.hitBox = bounds
+        this.hitBox.topLeft = [this.positionX, this.positionY]
+        this.hitBox.topRight = [this.positionX + T_CONSTANTS.TRACK_L, this.positionY]
     }
 
     // we'll use this later

@@ -14,6 +14,7 @@ export default class Car extends MovingObject {
     animate(){
         this.drawCar();
         this.move();
+        this.isBoundBy()
     }
 
     move(){
@@ -42,17 +43,16 @@ export default class Car extends MovingObject {
     }
 
     isBoundBy(){
-        const boundsObject = {
-            bottomLeft: [this.positionX, this.positionY + CONSTANTS.CAR_HEIGHT],
-            bottomRight: [this.positionX + CONSTANTS.CAR_WIDTH, this.positionY + CONSTANTS.CAR_HEIGHT]
-        }
-        this.hitBox = boundsObject
+        this.hitBox.bottomLeft = [this.positionX, this.positionY + CONSTANTS.CAR_HEIGHT]
+        this.hitBox.bottomRight = [this.positionX + CONSTANTS.CAR_WIDTH, this.positionY + CONSTANTS.CAR_HEIGHT]
     }
 
     landedOnTrack(track){
         if (this.isCollidedWith(track)){
             this.velocityY = 0;
             this.grounded = true;
+        } else {
+            this.grounded = false
         }
     }
 
