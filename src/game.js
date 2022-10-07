@@ -24,6 +24,7 @@ export default class BotWheels {
         this.drawBackground(this.ctx);
         this.tracks.animate();
         this.car.animate();
+        this.car.landedOnTrack(this.tracks);
         if (this.running === true){
             requestAnimationFrame(this.animate.bind(this));
         }

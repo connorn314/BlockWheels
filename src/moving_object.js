@@ -9,8 +9,14 @@ export default class MovingObject {
         this.game = game;
     }
 
-    isCollidedWith(boundsObject){ // this will eventually expect an array of items to potentially collide with
-    
+    isCollidedWith(boundsObject){ // will only be called on the car and this will eventually expect an array of items to potentially collide with
+        console.log("hit")
+        if (this.hitBox[bottomLeft][0] > boundsObject.hitBox[topLeft][0] || this.hitBox[bottomRight][0] < boundsObject.hitBox[topRight][0]){
+            if (this.hitBox[bottomLeft][1] <= boundsObject.hitBox[topLeft][1]){ //only works for a car that doesn't tilt
+                return true
+            }
+        }
+        return false
     }
 
     

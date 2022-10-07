@@ -27,10 +27,11 @@ export default class Track extends MovingObject {
     }
 
     boundBy(){ // we'll just focus on the top line of the track at the moment
-        return bounds = {
+        const bounds = {
             topLeft: [this.positionX, this.positionY],
             topRight: [this.positionX + T_CONSTANTS.TRACK_L, this.positionY]
         }
+        this.hitBox = bounds
     }
 
     // we'll use this later

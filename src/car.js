@@ -1,4 +1,5 @@
 import MovingObject from "./moving_object";
+import Track from "./track";
 
 export default class Car extends MovingObject {
     constructor(game){
@@ -6,7 +7,8 @@ export default class Car extends MovingObject {
         this.velocityX = CONSTANTS.VEL_X;
         this.velocityY = CONSTANTS.VEL_Y;
         this.jumpPower = 0;
-        // this.hitBounds = this.isBoundBy();
+        this.grounded = false;
+        
     }
 
     animate(){
@@ -16,18 +18,21 @@ export default class Car extends MovingObject {
 
     move(){
         this.positionY += this.velocityY;
-        this.velocityY += CONSTANTS.GRAVITY;
+        if (this.grounded === false){
+            this.velocityY += CONSTANTS.GRAVITY;
+        }
     }
 
     preJump(){
         if (this.jumpPower < 1.5){
-            this.jumpPower += .5 ;
+            this.jumpPower += .5;
         }
     }
 
     jump(){
         this.velocityY = -12 * this.jumpPower;
         this.jumpPower = 0;
+        this.grounded = false;
     }
 
 
@@ -37,9 +42,17 @@ export default class Car extends MovingObject {
     }
 
     isBoundBy(){
-        return boundsObject = {
+        const boundsObject = {
             bottomLeft: [this.positionX, this.positionY + CONSTANTS.CAR_HEIGHT],
             bottomRight: [this.positionX + CONSTANTS.CAR_WIDTH, this.positionY + CONSTANTS.CAR_HEIGHT]
+        }
+        this.hitBox = boundsObject
+    }
+
+    landedOnTrack(track){
+        if (this.isCollidedWith(track)){
+            this.velocityY = 0;
+            this.grounded = true;
         }
     }
 
