@@ -2,26 +2,36 @@ import MovingObject from "./moving_object";
 
 
 export default class Track extends MovingObject {
-    constructor(dimensions){
-        super(dimensions)
-        this.positionx = this.dimensions.width / 4
-        this.positiony = (this.dimensions.height / 3) * 2
+    constructor(game){
+        super(game)
+        this.velocityX = 1
+        this.positionY = (game.dimensions.height / 3) * 2
     }
 
-    animate(ctx){
-        this.drawFlat(ctx)
+    animate(){
+        this.drawFlat()
+        this.moveTrack()
     }
 
-    drawFlat(ctx){
-        ctx.fillStyle = "orangered"
-        ctx.fillRect(this.positionx, this.positiony, T_CONSTANTS.TRACK_L, T_CONSTANTS.TRACK_H)
+    drawFlat(){
+        this.game.ctx.fillStyle = "orangered"
+        this.game.ctx.fillRect(this.positionX, this.positionY, T_CONSTANTS.TRACK_L, T_CONSTANTS.TRACK_H)
     }
 
-    drawCurve(ctx){
+    drawCurve(){
 
     }
 
+    moveTrack(){
+        this.positionX -= this.velocityX // make dynamic later
+    }
 
+    boundBy(){ // we'll just focus on the top line of the track at the moment
+        return bounds = {
+            topLeft: [this.positionX, this.positionY],
+            topRight: [this.positionX + T_CONSTANTS.TRACK_L, this.positionY]
+        }
+    }
 
     // we'll use this later
     getRandomY(min, max){

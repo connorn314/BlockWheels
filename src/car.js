@@ -1,40 +1,46 @@
 import MovingObject from "./moving_object";
 
 export default class Car extends MovingObject {
-    constructor(dimensions){
-        super(dimensions);
-        this.jumpNum = 0
-        this.positionx = this.dimensions.width/4;
-        this.positiony = this.dimensions.height/2;
-        this.velocityX = CONSTANTS.VEL_X
-        this.velocityY = CONSTANTS.VEL_Y
+    constructor(game){
+        super(game);
+        this.velocityX = CONSTANTS.VEL_X;
+        this.velocityY = CONSTANTS.VEL_Y;
+        this.jumpPower = 0;
+        // this.hitBounds = this.isBoundBy();
     }
 
-    animate(ctx){
-        this.drawCar(ctx)
-        this.move()
+    animate(){
+        this.drawCar();
+        this.move();
     }
 
     move(){
-        this.positiony += this.velocityY
-        this.velocityY += CONSTANTS.GRAVITY
+        this.positionY += this.velocityY;
+        this.velocityY += CONSTANTS.GRAVITY;
     }
 
     preJump(){
-        if (this.jumpNum < 1.5){
-            this.jumpNum += .5 
+        if (this.jumpPower < 1.5){
+            this.jumpPower += .5 ;
         }
     }
 
     jump(){
-        this.velocityY = -12 * this.jumpNum
-        this.jumpNum = 0
+        this.velocityY = -12 * this.jumpPower;
+        this.jumpPower = 0;
     }
 
 
-    drawCar(ctx){
-        ctx.fillStyle = 'orangered';
-        ctx.fillRect(this.positionx, this.positiony, CONSTANTS.CAR_WIDTH, CONSTANTS.CAR_HEIGHT)
+    drawCar(){
+        this.game.ctx.fillStyle = 'orangered';
+        this.game.ctx.fillRect(this.positionX, this.positionY, CONSTANTS.CAR_WIDTH, CONSTANTS.CAR_HEIGHT);
+    }
+
+    isBoundBy(){
+        return boundsObject = {
+            bottomLeft: [this.positionX, this.positionY + CONSTANTS.CAR_HEIGHT],
+            bottomRight: [this.positionX + CONSTANTS.CAR_WIDTH, this.positionY + CONSTANTS.CAR_HEIGHT]
+        }
     }
 
     
