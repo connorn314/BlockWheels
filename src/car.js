@@ -7,8 +7,10 @@ export default class Car extends MovingObject {
         this.positionX = this.dimensions.width / 4
         this.velocityX = CONSTANTS.VEL_X;
         this.velocityY = CONSTANTS.VEL_Y;
+        this.vector = 0
         this.jumpPower = .5;
         this.grounded = false;
+        this.rotation = true;
         
     }
 
@@ -26,7 +28,7 @@ export default class Car extends MovingObject {
     }
 
     preJump(){
-        if (this.jumpPower < 2){
+        if (this.jumpPower < 1.5){
             this.jumpPower += .5;
         }
     }
@@ -39,10 +41,33 @@ export default class Car extends MovingObject {
         this.jumpPower = .5;
     }
 
+    rotateCar(direction){
+        if (direction === "left"){
+            this.rotation = true
+            this.vector += -Math.PI / 16
+        } else {
+            console.log("not left")
+            this.rotation = true
+            this.vector += Math.PI / 16
+        }
+    }
+
+    endRotate(){
+        this.vector = 0
+        this.rotation = false
+    }
+
 
     drawCar(){
+        this.game.ctx.save()
+        if (this.rotation === true){
+            this.game.ctx.translate(this.positionX + CONSTANTS.CAR_WIDTH/2, this.positionY + CONSTANTS.CAR_HEIGHT/2);
+            this.game.ctx.rotate(this.vector);
+            this.game.ctx.translate(-(this.positionX + CONSTANTS.CAR_WIDTH/2), -(this.positionY + CONSTANTS.CAR_HEIGHT/2))
+        }
         this.game.ctx.fillStyle = 'orangered';
         this.game.ctx.fillRect(this.positionX, this.positionY, CONSTANTS.CAR_WIDTH, CONSTANTS.CAR_HEIGHT);
+        this.game.ctx.restore()
     }
 
     isBoundBy(){

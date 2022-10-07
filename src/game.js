@@ -9,8 +9,11 @@ export default class BotWheels {
             height: canvas.height
         };
         
-        document.addEventListener('keydown', this.spaceDown.bind(this))  ;
+        document.addEventListener('keydown', this.spaceDown.bind(this));
         document.addEventListener('keyup', this.spaceUp.bind(this));
+        document.addEventListener('keydown', this.leftArrowDown.bind(this));
+        document.addEventListener('keydown', this.rightArrowDown.bind(this));
+        document.addEventListener('keyup', this.arrowUp.bind(this))
 
     }
 
@@ -56,6 +59,7 @@ export default class BotWheels {
         } 
         if (this.tracks[0].hitBox.topRight[0] < 0){
             this.tracks.shift()
+            console.log('delete')
         }
     }
 
@@ -76,6 +80,24 @@ export default class BotWheels {
         if (e.code === "Space" && this.running === true){
             this.car.jump();
         }  
+    }
+
+    leftArrowDown(e){
+        if (e.code === "ArrowLeft" && this.running === true){
+            this.car.rotateCar("left");
+        }   
+    }
+
+    rightArrowDown(e){
+        if (e.code === "ArrowRight" && this.running === true){
+            this.car.rotateCar("right");
+        } 
+    }
+
+    arrowUp(e){
+        if ((e.code === "ArrowRight" || e.code === "ArrowLeft") && this.running === true){
+            this.car.endRotate();
+        }
     }
 }
 
