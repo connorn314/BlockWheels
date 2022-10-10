@@ -14,10 +14,12 @@ export default class BotWheels {
             spaceRelease: false,
             leftDown: false,
             rightDown: false,
+            foward: false
         }
         
         document.addEventListener('keydown', this.keyDown.bind(this));
         document.addEventListener('keyup', this.keyUp.bind(this));
+        canvas.addEventListener('click', this.restartButton.bind(this))
         
 
     }
@@ -27,8 +29,17 @@ export default class BotWheels {
         ctx.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
     }
 
+    drawRestart(ctx) {
+        ctx.fillStyle = "orangered";
+        ctx.fillRect((this.dimensions.width / 12) * 11, (this.dimensions.height / 8) * 7, 60, 60)
+        ctx.font = '36px serif';
+        ctx.fillStyle = "white";
+        ctx.fillText("R", (this.dimensions.width / 16) * 15, (this.dimensions.height / 18) * 17)
+    }
+
     animate() {
         this.drawBackground(this.ctx);
+        this.drawRestart(this.ctx);
         this.animateTracks();
         this.car.animate();
         this.car.landedOnTrack();
@@ -42,6 +53,16 @@ export default class BotWheels {
         this.car = new Car(this);
         this.running = false;
         this.play();
+    }
+
+    restartButton() {
+        while (this.tracks.length > 1){
+            this.tracks.pop()
+        }
+        this.tracks[0].firstTrack()
+        this.car.positionX = this.dimensions.width / 4
+        this.car.positionY = this.dimensions.height / 2
+        this.car.vector = 0
     }
 
     play() {
@@ -64,7 +85,6 @@ export default class BotWheels {
         } 
         if (this.tracks[0].hitBox.topRight[0] < 0){
             this.tracks.shift()
-            console.log('delete')
         }
     }
 
@@ -74,25 +94,28 @@ export default class BotWheels {
             this.regulateTracks()
         }
     }
-    keyDown(e){
+    keyDown(e){ // dry up this code
         if (e.code === "Space" && this.running === true){
             this.keyState.spaceDown = true;
-            this.car.preJump();
         } else if (e.code === "ArrowLeft" && this.running === true){
             this.keyState.leftDown = true;
         }  else if (e.code === "ArrowRight" && this.running === true){
             this.keyState.rightDown = true;
+        } else if (e.code === "ArrowUp" && this.running ===  true){
+            this.keyState.forward = true;
         }
     }
 
-    keyUp(e){
+    keyUp(e){ // dry up this code
         if (e.code === "Space" && this.running === true){
             this.keyState.spaceRelease = true;
-            this.car.jump();
+            this.keyState.spaceDown = false;
         } else if (e.code === "ArrowLeft" && this.running === true){
             this.keyState.leftDown = false;
         } else if (e.code === "ArrowRight" && this.running === true){
             this.keyState.rightDown = false;
+        } else if (e.code === "ArrowUp" && this.running ===  true){
+            this.keyState.forward = false;
         }
         
     }

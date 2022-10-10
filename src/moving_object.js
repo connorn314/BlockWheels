@@ -14,7 +14,7 @@ export default class MovingObject {
     isCollidedWith(boundsObject){ // will only be called on the car and this will eventually expect an array of items to potentially collide with
         let collision = false
         if (this.hitBox.bottomLeft[0] > boundsObject.hitBox.topLeft[0] && this.hitBox.bottomRight[0] < boundsObject.hitBox.topRight[0]){
-            if (this.hitBox.bottomLeft[1] <= boundsObject.hitBox.topLeft[1] + 12 && this.hitBox.bottomLeft[1] >= boundsObject.hitBox.topLeft[1]){ //only works for a car that doesn't tilt
+            if (this.hitBox.bottomLeft[1] <= boundsObject.hitBox.topLeft[1] + 15 && this.hitBox.bottomLeft[1] >= boundsObject.hitBox.topLeft[1]){ //only works for a car that doesn't tilt
                 collision = true
             }
         }

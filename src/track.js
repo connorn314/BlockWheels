@@ -4,18 +4,18 @@ import MovingObject from "./moving_object";
 export default class Track extends MovingObject {
     constructor(game){
         super(game)
-        this.velocityX = 5
+        this.velocityX = 0
         this.positionY = Track.getRandomInt(0, this.dimensions.height)
     }
 
     firstTrack(){
         this.positionY = (this.game.dimensions.height / 3) * 2
-        this.positionX = this.dimensions.width / 4
+        this.positionX = this.dimensions.width / 5
     }
 
     animate(){
-        this.drawFlat()
         this.moveTrack()
+        this.drawFlat()
         this.boundBy()
     }
 
