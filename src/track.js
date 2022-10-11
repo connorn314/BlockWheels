@@ -6,7 +6,10 @@ export default class Track extends MovingObject {
         super(game)
         this.velocityX = 0
         this.positionY = Track.getRandomInt(0, this.dimensions.height)
-        this.vector = Math.atan(100/800)
+        this.dX = 800
+        this.dY = 100
+        this.vector = Math.atan(this.dY/this.dX)
+        // this.vector = 0
     }
 
     firstTrack(){
@@ -24,10 +27,11 @@ export default class Track extends MovingObject {
     drawDownHill(){
         this.downHillBox = new Path2D();
         this.game.ctx.fillStyle = 'orangered';
-        this.downHillBox.moveTo(this.positionX, this.positionY)
-        this.downHillBox.lineTo(this.positionX + 800, this.positionY + 100)
-        this.downHillBox.lineTo(this.positionX + 800, this.positionY + 120)
-        this.downHillBox.lineTo(this.positionX, this.positionY + 20)
+        let offsetx = this.positionX - this.game.cameraX
+        this.downHillBox.moveTo(offsetx, this.positionY)
+        this.downHillBox.lineTo(offsetx + this.dX, this.positionY + this.dY)
+        this.downHillBox.lineTo(offsetx + this.dX, this.positionY + this.dY + 20)
+        this.downHillBox.lineTo(offsetx, this.positionY + 20)
         this.downHillBox.closePath()
         this.game.ctx.fill(this.downHillBox);
     }
@@ -35,7 +39,7 @@ export default class Track extends MovingObject {
     drawFlat(){
         this.trackBox = new Path2D();
         this.center = [this.positionX + T_CONSTANTS.TRACK_L/2, this.positionY + T_CONSTANTS.TRACK_H/2]
-        this.trackBox.rect(this.positionX, this.positionY, T_CONSTANTS.TRACK_L, T_CONSTANTS.TRACK_H)
+        this.trackBox.rect(this.positionX - this.game.cameraX, this.positionY, T_CONSTANTS.TRACK_L, T_CONSTANTS.TRACK_H)
         this.game.ctx.fillStyle = "orangered"
         this.game.ctx.fill(this.trackBox)
     }
@@ -52,7 +56,7 @@ export default class Track extends MovingObject {
 
     boundBy(){ // we'll just focus on the top line of the track at the moment
         this.hitBox.topLeft = [this.positionX, this.positionY]
-        this.hitBox.topRight = [this.positionX + T_CONSTANTS.TRACK_L, this.positionY]
+        this.hitBox.topRight = [this.positionX + this.dX, this.positionY + this.dY]
     }
 
 

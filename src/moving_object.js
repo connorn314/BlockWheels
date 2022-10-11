@@ -17,11 +17,12 @@ export default class MovingObject {
         let collision = {}
         for (let corner in this.hitBox){
             let pos = this.hitBox[corner]
-            if (this.game.ctx.isPointInPath(boundsObject.trackBox, pos[0], pos[1])){
-                collision[corner] = pos
-            } else if (this.game.ctx.isPointInPath(boundsObject.downHillBox, pos[0], pos[1])){
+            if (this.pointInPath(boundsObject, pos[0], pos[1])){
                 collision[corner] = pos
             }
+            //  else if (this.game.ctx.isPointInPath(boundsObject.downHillBox, pos[0], pos[1])){
+            //     collision[corner] = pos
+            // }
         }
         if (JSON.stringify(collision) === '{}'){
             collision = false
@@ -29,4 +30,16 @@ export default class MovingObject {
         return collision
     }
 
+    pointInPath(boundsObject, x, y){ // improve eff by seperating condition logix into helper and only calculating eq once per for loop above
+        let slope = (boundsObject.hitBox.topLeft[1] - boundsObject.hitBox.topRight[1])/(boundsObject.hitBox.topLeft[0] - boundsObject.hitBox.topRight[0])
+        
+        let intercept = boundsObject.hitBox.topRight[1] - (slope * boundsObject.hitBox.topRight[0]) 
+        
+        if ( y + 6 >= (slope * x) + intercept && y - 6 >= (slope * x) + intercept && x >= boundsObject.hitBox.topLeft[0] && x < boundsObject.hitBox.topRight[0]){
+            return true
+        } else {
+            return false
+        } 
+    }
+    
 }

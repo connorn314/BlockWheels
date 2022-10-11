@@ -33,15 +33,9 @@ export default class Car extends MovingObject {
             this.velocityY += CONSTANTS.GRAVITY;
         }
         if ((this.game.keyState.forward === true)){
-         // if (this.game.keyState.forward === true && this.positionX < this.dimensions.width / 3){
             this.velocityX = 4;
-        // } else if (this.game.keyState.forward === true && this.positionX >= this.dimensions.width / 3) {
-        //     this.velocityX = 0;
-        //     this.game.tracks.forEach (track => track.velocityX = 4)
-            //tracks need to move
         } else {
             this.velocityX = 0
-            // this.game.tracks.forEach (track => track.velocityX = 0)
         }
     }
 
@@ -78,11 +72,11 @@ export default class Car extends MovingObject {
         this.game.ctx.save()
         this.center = [this.positionX + CONSTANTS.CAR_WIDTH/2, this.positionY + CONSTANTS.CAR_HEIGHT/2]
         if (this.rotation === true || this.vector != 0){
-            this.game.ctx.translate(...this.center);
+            this.game.ctx.translate((this.center[0] - this.game.cameraX), this.center[1]);
             this.game.ctx.rotate(this.vector % (Math.PI * 2));
-            this.game.ctx.translate(-this.center[0], -this.center[1]);
+            this.game.ctx.translate(-(this.center[0] - this.game.cameraX), -(this.center[1]));
         }
-        this.carBox.rect(this.positionX, this.positionY, CONSTANTS.CAR_WIDTH, CONSTANTS.CAR_HEIGHT);
+        this.carBox.rect(this.positionX - this.game.cameraX, this.positionY, CONSTANTS.CAR_WIDTH, CONSTANTS.CAR_HEIGHT);
         this.game.ctx.fillStyle = 'orangered';
         this.game.ctx.fill(this.carBox)
         // this.game.ctx.fillRect(this.positionX, this.positionY, CONSTANTS.CAR_WIDTH, CONSTANTS.CAR_HEIGHT);
@@ -131,7 +125,6 @@ export default class Car extends MovingObject {
         for (let i = 0; i < this.game.tracks.length; i++){
             let collisionObj = this.isCollidedWith(this.game.tracks[i])
             if (collisionObj !== false){
-                // console.log(this.isCollidedWith(this.game.tracks[i]))
                 this.velocityY = 0;
                 this.landingVector = this.game.tracks[i].vector
                 if (Object.keys(collisionObj).length === 2){
@@ -153,7 +146,6 @@ export default class Car extends MovingObject {
     landProperly(){
         if (this.landing !== false){
             let currentVec = this.vector % (Math.PI * 2)
-            // if ( currentVec < Math.PI / 2 && currentVec > 0){
             if (this.landing.hasOwnProperty('bottomRight')){
                 // console.log("tip left")
                 if (currentVec - (Math.PI/32) > this.landingVector){
@@ -164,7 +156,6 @@ export default class Car extends MovingObject {
                 }
 
             } else if (this.landing.hasOwnProperty('bottomLeft')){
-            // else if (currentVec > -Math.PI / 2 && currentVec < 0){
                 // console.log("tip right")
                 if (currentVec + (Math.PI/32) < this.landingVector){
                     this.vector = this.landingVector

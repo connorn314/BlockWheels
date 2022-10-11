@@ -29,20 +29,21 @@ export default class BotWheels {
 
     drawBackground(ctx) {
         ctx.fillStyle = "skyblue";
-        ctx.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
+        ctx.fillRect(0, 0, this.MAP_WIDTH, this.MAP_HEIGHT);
     }
 
-    drawRestart(ctx) {
-        ctx.fillStyle = "orangered";
-        ctx.fillRect((this.dimensions.width / 12) * 11, (this.dimensions.height / 8) * 7, 60, 60)
-        ctx.font = '36px serif';
-        ctx.fillStyle = "white";
-        ctx.fillText("R", (this.dimensions.width / 16) * 15, (this.dimensions.height / 18) * 17)
-    }
+    // drawRestart(ctx) {
+    //     ctx.fillStyle = "orangered";
+    //     ctx.fillRect((this.dimensions.width / 12) * 11, (this.dimensions.height / 8) * 7, 60, 60)
+    //     ctx.font = '36px serif';
+    //     ctx.fillStyle = "white";
+    //     ctx.fillText("R", (this.dimensions.width / 16) * 15, (this.dimensions.height / 18) * 17)
+    // }
 
     animate() {
         this.drawBackground(this.ctx);
-        this.drawRestart(this.ctx);
+        this.setCamera();
+        // this.drawRestart(this.ctx);
         this.animateTracks();
         this.car.animate();
         if (this.running === true){
@@ -58,10 +59,10 @@ export default class BotWheels {
     }
 
     restartButton() {
-        while (this.tracks.length > 1){
+        while (this.tracks.length > 2){
             this.tracks.pop()
         }
-        this.tracks[0].firstTrack()
+        // this.tracks[0].firstTrack()
         this.car.positionX = this.dimensions.width / 4
         this.car.positionY = this.dimensions.height / 2
         this.car.vector = 0
@@ -70,29 +71,39 @@ export default class BotWheels {
 
     play() {
         this.running = true;
+        
         this.animate();
     }
 
     setCamera(){
-        this.cameraX = -(this.MAP_WIDTH / 2)
+        this.cameraX = -((this.dimensions.width / 4) - this.car.positionX);
+        // if (this.car.positionY <= this.dimensions.height / 3 ){
+
+        //     this.cameray = -((this.dimensions.height / 3) - this.car.positionY);
+        // }
     }
 
     createTracks(){
         const startingTracks = []
         let firstTrack = new Track(this)
+        let secondTrack = new Track(this)
         firstTrack.firstTrack()
+        secondTrack.positionX = firstTrack.positionX + firstTrack.dX
+        secondTrack.positionY = firstTrack.positionY + firstTrack.dY / 2
         startingTracks.push(firstTrack)
+        startingTracks.push(secondTrack)
+        
         return startingTracks
     }
 
     regulateTracks(){
-        if (this.tracks[this.tracks.length - 1].hitBox.topRight[0] < this.dimensions.width){
-            let nextTrack = new Track(this)
-            this.tracks.push(nextTrack)
-        } 
-        if (this.tracks[0].hitBox.topRight[0] < 0){
-            this.tracks.shift()
-        }
+        // if (this.tracks[this.tracks.length - 1].hitBox.topRight[0] < this.dimensions.width){
+        //     let nextTrack = new Track(this)
+        //     this.tracks.push(nextTrack)
+        // } 
+        // if (this.tracks[0].hitBox.topRight[0] < 0){
+        //     this.tracks.shift()
+        // }
     }
 
     animateTracks(){
