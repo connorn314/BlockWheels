@@ -76,9 +76,6 @@ export default class Car extends MovingObject {
         this.carBox = new Path2D();
         this.game.ctx.save()
         this.center = [this.positionX + CONSTANTS.CAR_WIDTH/2, this.positionY + CONSTANTS.CAR_HEIGHT/2]
-        // if (this.landing != {}){
-        //     this.landProperly();
-        // }
         if (this.rotation === true || this.vector != 0){
             this.game.ctx.translate(...this.center);
             this.game.ctx.rotate(this.vector % (Math.PI * 2));
@@ -135,9 +132,11 @@ export default class Car extends MovingObject {
             if (collisionObj !== false){
                 // console.log(this.isCollidedWith(this.game.tracks[i]))
                 this.velocityY = 0;
+                this.landingVector = this.game.tracks[i].vector
                 if (Object.keys(collisionObj).length === 2){
                     this.landing = false;
                     this.grounded = true; //means you can't jump until you land
+                    this.vector = this.landingVector
                 } else {
                     this.landing = collisionObj;
                     this.grounded = false;
@@ -153,15 +152,25 @@ export default class Car extends MovingObject {
     landProperly(){
         if (this.landing !== false){
             let currentVec = this.vector % (Math.PI * 2)
-            if ( currentVec < Math.PI / 2 && currentVec > 0 ){
+            // if ( currentVec < Math.PI / 2 && currentVec > 0){
+            if (this.landing.hasOwnProperty('bottomRight')){
                 // console.log("tip left")
-                this.rotation = true
-                this.vector += -Math.PI / 64
+                if (currentVec - (Math.PI/32) > this.landingVector){
+                    this.vector = this.landingVector    
+                } else {
+                    this.rotation = true
+                    this.vector += -Math.PI / 64 
+                }
 
-            } else if (currentVec > -Math.PI / 2 && currentVec < 0){
+            } else if (this.landing.hasOwnProperty('bottomLeft')){
+            // else if (currentVec > -Math.PI / 2 && currentVec < 0){
                 // console.log("tip right")
-                this.rotation = true
-                this.vector += Math.PI / 64
+                if (currentVec + (Math.PI/32) < this.landingVector){
+                    this.vector = this.landingVector
+                } else {
+                    this.rotation = true
+                    this.vector += Math.PI / 64
+                }
             }
         }
     }

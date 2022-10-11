@@ -10,6 +10,7 @@ export default class MovingObject {
         this.vector = 0
         this.game = game;
         this.trackBox = new Path2D()
+        this.downHillBox = new Path2D()
     }
 
     isCollidedWith(boundsObject){ // will only be called on t he car and this will eventually expect an array of items to potentially collide with
@@ -17,6 +18,8 @@ export default class MovingObject {
         for (let corner in this.hitBox){
             let pos = this.hitBox[corner]
             if (this.game.ctx.isPointInPath(boundsObject.trackBox, pos[0], pos[1])){
+                collision[corner] = pos
+            } else if (this.game.ctx.isPointInPath(boundsObject.downHillBox, pos[0], pos[1])){
                 collision[corner] = pos
             }
         }
