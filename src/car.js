@@ -11,15 +11,18 @@ export default class Car extends MovingObject {
         this.jumpPower = .5;
         this.grounded = false;
         this.rotation = true;
-        
+        this.landing = false;
+        this.hypotenuse = Math.sqrt(Math.pow(CONSTANTS.CAR_WIDTH/2, 2) + Math.pow(CONSTANTS.CAR_HEIGHT/2, 2))
+        this.theta = Math.atan((CONSTANTS.CAR_HEIGHT/2)/(CONSTANTS.CAR_WIDTH/2))
     }
 
     animate(){
-        this.rotateCar();
         this.jump()
+        this.rotateCar();
         this.move();
         this.drawCar();
-        this.isBoundBy()
+        this.isBoundBy();
+        this.landedOnTrack();
     }
 
     move(){
@@ -43,7 +46,7 @@ export default class Car extends MovingObject {
     jump(){
         if (this.game.keyState.spaceDown === true){
             if (this.jumpPower <= 1.5){
-                this.jumpPower += .1;
+                this.jumpPower += .25;
             } 
         } else if (this.game.keyState.spaceRelease === true) {
             if (this.grounded === true){
@@ -56,10 +59,10 @@ export default class Car extends MovingObject {
     }
 
     rotateCar(){
-        if (this.game.keyState.leftDown === true){
+        if (this.game.keyState.leftDown === true && this.grounded === false){
             this.rotation = true
             this.vector += -Math.PI / 64
-        } else if (this.game.keyState.rightDown === true){
+        } else if (this.game.keyState.rightDown === true && this.grounded === false){
             this.rotation = true
             this.vector += Math.PI / 64
         } else {
@@ -69,35 +72,79 @@ export default class Car extends MovingObject {
     }
 
     drawCar(){
-        // let carBox = new Path2D();
+        this.carBox = new Path2D();
         this.game.ctx.save()
+        this.center = [this.positionX + CONSTANTS.CAR_WIDTH/2, this.positionY + CONSTANTS.CAR_HEIGHT/2]
+        // if (this.landing != {}){
+        //     this.landProperly();
+        // }
         if (this.rotation === true || this.vector != 0){
-            this.game.ctx.translate(this.positionX + CONSTANTS.CAR_WIDTH/2, this.positionY + CONSTANTS.CAR_HEIGHT/2);
-            this.game.ctx.rotate(this.vector);
-            this.game.ctx.translate(-(this.positionX + CONSTANTS.CAR_WIDTH/2), -(this.positionY + CONSTANTS.CAR_HEIGHT/2));
+            this.game.ctx.translate(...this.center);
+            this.game.ctx.rotate(this.vector % (Math.PI * 2));
+            this.game.ctx.translate(-this.center[0], -this.center[1]);
         }
-        // carBox.rect(this.positionX, this.positionY, CONSTANTS.CAR_WIDTH, CONSTANTS.CAR_HEIGHT);
+        this.carBox.rect(this.positionX, this.positionY, CONSTANTS.CAR_WIDTH, CONSTANTS.CAR_HEIGHT);
         this.game.ctx.fillStyle = 'orangered';
-        // this.game.ctx. fill(carBox)
-        this.game.ctx.fillRect(this.positionX, this.positionY, CONSTANTS.CAR_WIDTH, CONSTANTS.CAR_HEIGHT);
+        this.game.ctx.fill(this.carBox)
+        // this.game.ctx.fillRect(this.positionX, this.positionY, CONSTANTS.CAR_WIDTH, CONSTANTS.CAR_HEIGHT);
         this.game.ctx.restore()
     }
 
     isBoundBy(){
-        this.hitBox.bottomLeft = [this.positionX, this.positionY + CONSTANTS.CAR_HEIGHT]
-        this.hitBox.bottomRight = [this.positionX + CONSTANTS.CAR_WIDTH, this.positionY + CONSTANTS.CAR_HEIGHT]
+        // bottom left, top left, top right, bottom right
+        let angleOne = this.vector + this.theta  // bottom right angle
+        let angleTwo = this.vector - this.theta // top right angle
+        let angleThree = -this.vector + this.theta // bottom left angle
+        let angleFour = -this.vector - this.theta // top left angle
+        let angleFive = this.vector // right
+        let angleSix = -this.vector // left
+        let cornerArray = [angleOne, angleTwo, angleThree, angleFour]
+        let sideArray = [angleFive, angleSix]
+        let coordinateArray = []
+        cornerArray.forEach ((angle, i) => {
+            let x = this.hypotenuse * Math.cos(angle)
+            let y = this.hypotenuse * Math.sin(angle)
+            if (i < 2){
+                coordinateArray.push([this.center[0] + x, this.center[1] + y])
+            } else {
+                coordinateArray.push([this.center[0] - x, this.center[1] + y])
+            }
+        })
+        this.hitBox.bottomRight = coordinateArray[0]
+        this.hitBox.topRight = coordinateArray[1]
+        this.hitBox.bottomLeft = coordinateArray[2]
+        this.hitBox.topLeft = coordinateArray[3]
+
+        sideArray.forEach ((angle, i) => {
+            let x = (CONSTANTS.CAR_WIDTH/2) * Math.cos(angle)
+            let y = (CONSTANTS.CAR_WIDTH/2) * Math.sin(angle)
+            if (i === 0){
+                coordinateArray.push([this.center[0] + x, this.center[1] + y])
+            } else {
+                coordinateArray.push([this.center[0] - x, this.center[1] + y])
+            }
+        })
+        this.hitBox.rightSide = coordinateArray[4]
+        this.hitBox.leftSide = coordinateArray[5]
     }
 
     landedOnTrack(){
         for (let i = 0; i < this.game.tracks.length; i++){
-            if (this.isCollidedWith(this.game.tracks[i])){
+            if (this.isCollidedWith(this.game.tracks[i]) !== false){
+                console.log(this.isCollidedWith(this.game.tracks[i]))
                 this.velocityY = 0;
                 this.grounded = true;
+                this.landing = true;
                 break 
             } else {
-                this.grounded = false
+                this.grounded = false;
             }
         }
+    }
+
+    landProperly(){
+        
+        //this.grounded = true later
     }
 
     

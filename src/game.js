@@ -14,7 +14,7 @@ export default class BotWheels {
             spaceRelease: false,
             leftDown: false,
             rightDown: false,
-            foward: false
+            forward: false
         }
         
         document.addEventListener('keydown', this.keyDown.bind(this));
@@ -42,7 +42,6 @@ export default class BotWheels {
         this.drawRestart(this.ctx);
         this.animateTracks();
         this.car.animate();
-        this.car.landedOnTrack();
         if (this.running === true){
             requestAnimationFrame(this.animate.bind(this));
         }
@@ -63,6 +62,7 @@ export default class BotWheels {
         this.car.positionX = this.dimensions.width / 4
         this.car.positionY = this.dimensions.height / 2
         this.car.vector = 0
+        // this.grounded = false
     }
 
     play() {
@@ -94,6 +94,7 @@ export default class BotWheels {
             this.regulateTracks()
         }
     }
+    
     keyDown(e){ // dry up this code
         if (e.code === "Space" && this.running === true){
             this.keyState.spaceDown = true;

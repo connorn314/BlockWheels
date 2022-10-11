@@ -9,14 +9,19 @@ export default class MovingObject {
         this.hitBox = {}
         this.vector = 0
         this.game = game;
+        this.trackBox = new Path2D()
     }
 
-    isCollidedWith(boundsObject){ // will only be called on the car and this will eventually expect an array of items to potentially collide with
-        let collision = false
-        if (this.hitBox.bottomLeft[0] > boundsObject.hitBox.topLeft[0] && this.hitBox.bottomRight[0] < boundsObject.hitBox.topRight[0]){
-            if (this.hitBox.bottomLeft[1] <= boundsObject.hitBox.topLeft[1] + 15 && this.hitBox.bottomLeft[1] >= boundsObject.hitBox.topLeft[1]){ //only works for a car that doesn't tilt
-                collision = true
+    isCollidedWith(boundsObject){ // will only be called on t he car and this will eventually expect an array of items to potentially collide with
+        let collision = {}
+        for (let corner in this.hitBox){
+            let pos = this.hitBox[corner]
+            if (this.game.ctx.isPointInPath(boundsObject.trackBox, pos[0], pos[1])){
+                collision[corner] = pos
             }
+        }
+        if (JSON.stringify(collision) === '{}'){
+            collision = false
         }
         return collision
     }

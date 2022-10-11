@@ -20,8 +20,10 @@ export default class Track extends MovingObject {
     }
 
     drawFlat(){
+        this.trackBox = new Path2D();
+        this.trackBox.rect(this.positionX, this.positionY, T_CONSTANTS.TRACK_L, T_CONSTANTS.TRACK_H)
         this.game.ctx.fillStyle = "orangered"
-        this.game.ctx.fillRect(this.positionX, this.positionY, T_CONSTANTS.TRACK_L, T_CONSTANTS.TRACK_H)
+        this.game.ctx.fill(this.trackBox)
     }
 
     drawCurve(){
