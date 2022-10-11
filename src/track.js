@@ -28,10 +28,11 @@ export default class Track extends MovingObject {
         this.downHillBox = new Path2D();
         this.game.ctx.fillStyle = 'orangered';
         let offsetx = this.positionX - this.game.cameraX
-        this.downHillBox.moveTo(offsetx, this.positionY)
-        this.downHillBox.lineTo(offsetx + this.dX, this.positionY + this.dY)
-        this.downHillBox.lineTo(offsetx + this.dX, this.positionY + this.dY + 20)
-        this.downHillBox.lineTo(offsetx, this.positionY + 20)
+        let offsety = this.positionY - this.game.cameraY
+        this.downHillBox.moveTo(offsetx, offsety)
+        this.downHillBox.lineTo(offsetx + this.dX, offsety + this.dY)
+        this.downHillBox.lineTo(offsetx + this.dX, offsety + this.dY + 20)
+        this.downHillBox.lineTo(offsetx, offsety + 20)
         this.downHillBox.closePath()
         this.game.ctx.fill(this.downHillBox);
     }

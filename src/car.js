@@ -72,11 +72,11 @@ export default class Car extends MovingObject {
         this.game.ctx.save()
         this.center = [this.positionX + CONSTANTS.CAR_WIDTH/2, this.positionY + CONSTANTS.CAR_HEIGHT/2]
         if (this.rotation === true || this.vector != 0){
-            this.game.ctx.translate((this.center[0] - this.game.cameraX), this.center[1]);
+            this.game.ctx.translate((this.center[0] - this.game.cameraX), this.center[1] - this.game.cameraY);
             this.game.ctx.rotate(this.vector % (Math.PI * 2));
-            this.game.ctx.translate(-(this.center[0] - this.game.cameraX), -(this.center[1]));
+            this.game.ctx.translate(-(this.center[0] - this.game.cameraX), -(this.center[1] - this.game.cameraY));
         }
-        this.carBox.rect(this.positionX - this.game.cameraX, this.positionY, CONSTANTS.CAR_WIDTH, CONSTANTS.CAR_HEIGHT);
+        this.carBox.rect(this.positionX - this.game.cameraX, this.positionY - this.game.cameraY, CONSTANTS.CAR_WIDTH, CONSTANTS.CAR_HEIGHT);
         this.game.ctx.fillStyle = 'orangered';
         this.game.ctx.fill(this.carBox)
         // this.game.ctx.fillRect(this.positionX, this.positionY, CONSTANTS.CAR_WIDTH, CONSTANTS.CAR_HEIGHT);

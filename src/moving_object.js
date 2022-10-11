@@ -5,7 +5,7 @@ export default class MovingObject {
         this.velocityY = 0;
         this.dimensions = game.dimensions;
         this.positionX = this.dimensions.width;
-        this.positionY = this.dimensions.height/2;
+        this.positionY = this.dimensions.height/4;
         this.hitBox = {}
         this.vector = 0
         this.game = game;

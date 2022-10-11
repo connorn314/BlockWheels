@@ -64,7 +64,7 @@ export default class BotWheels {
         }
         // this.tracks[0].firstTrack()
         this.car.positionX = this.dimensions.width / 4
-        this.car.positionY = this.dimensions.height / 2
+        this.car.positionY = this.dimensions.height / 4
         this.car.vector = 0
         // this.grounded = false
     }
@@ -77,10 +77,14 @@ export default class BotWheels {
 
     setCamera(){
         this.cameraX = -((this.dimensions.width / 4) - this.car.positionX);
-        // if (this.car.positionY <= this.dimensions.height / 3 ){
-
-        //     this.cameray = -((this.dimensions.height / 3) - this.car.positionY);
-        // }
+        if (this.car.positionY <= (this.dimensions.height / 2)){
+            console.log("true")
+            this.cameraY = 0
+        } else {
+            this.cameraY = -((this.dimensions.height / 2) - this.car.positionY);
+        }
+        console.log(this.cameraY)
+        console.log(this.car.positionY)
     }
 
     createTracks(){
