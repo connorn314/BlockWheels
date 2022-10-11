@@ -23,7 +23,6 @@ export default class Track extends MovingObject {
 
     drawDownHill(){
         this.downHillBox = new Path2D();
-        // this.downHillBox.beginPath();
         this.game.ctx.fillStyle = 'orangered';
         this.downHillBox.moveTo(this.positionX, this.positionY)
         this.downHillBox.lineTo(this.positionX + 800, this.positionY + 100)
@@ -35,16 +34,13 @@ export default class Track extends MovingObject {
 
     drawFlat(){
         this.trackBox = new Path2D();
-        // this.game.ctx.save();
         this.center = [this.positionX + T_CONSTANTS.TRACK_L/2, this.positionY + T_CONSTANTS.TRACK_H/2]
-        // this.game.ctx.translate(...this.center);
-        // this.game.ctx.rotate(T_CONSTANTS.VECTOR % (Math.PI * 2));
-        // this.game.ctx.translate(-this.center[0], -this.center[1]);
         this.trackBox.rect(this.positionX, this.positionY, T_CONSTANTS.TRACK_L, T_CONSTANTS.TRACK_H)
         this.game.ctx.fillStyle = "orangered"
         this.game.ctx.fill(this.trackBox)
-        // this.game.ctx.restore();
     }
+
+
 
     drawCurve(){
 

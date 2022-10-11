@@ -32,15 +32,16 @@ export default class Car extends MovingObject {
         if (this.grounded === false && this.velocityY < CONSTANTS.TERMINAL_VEL){
             this.velocityY += CONSTANTS.GRAVITY;
         }
-        if (this.game.keyState.forward === true && this.positionX < this.dimensions.width / 3){
+        if ((this.game.keyState.forward === true)){
+         // if (this.game.keyState.forward === true && this.positionX < this.dimensions.width / 3){
             this.velocityX = 4;
-        } else if (this.game.keyState.forward === true && this.positionX >= this.dimensions.width / 3) {
-            this.velocityX = 0;
-            this.game.tracks.forEach (track => track.velocityX = 4)
+        // } else if (this.game.keyState.forward === true && this.positionX >= this.dimensions.width / 3) {
+        //     this.velocityX = 0;
+        //     this.game.tracks.forEach (track => track.velocityX = 4)
             //tracks need to move
         } else {
             this.velocityX = 0
-            this.game.tracks.forEach (track => track.velocityX = 0)
+            // this.game.tracks.forEach (track => track.velocityX = 0)
         }
     }
 

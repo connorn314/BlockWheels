@@ -9,6 +9,9 @@ export default class BotWheels {
             height: canvas.height
         };
 
+        this.MAP_WIDTH = 4000;
+        this.MAP_HEIGHT = 2000;
+
         this.keyState = {
             spaceDown: false,
             spaceRelease: false,
@@ -68,6 +71,10 @@ export default class BotWheels {
     play() {
         this.running = true;
         this.animate();
+    }
+
+    setCamera(){
+        this.cameraX = -(this.MAP_WIDTH / 2)
     }
 
     createTracks(){
