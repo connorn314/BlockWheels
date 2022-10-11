@@ -23,6 +23,7 @@ export default class Car extends MovingObject {
         this.drawCar();
         this.isBoundBy();
         this.landedOnTrack();
+        this.landProperly();
     }
 
     move(){
@@ -130,24 +131,42 @@ export default class Car extends MovingObject {
 
     landedOnTrack(){
         for (let i = 0; i < this.game.tracks.length; i++){
-            if (this.isCollidedWith(this.game.tracks[i]) !== false){
-                console.log(this.isCollidedWith(this.game.tracks[i]))
+            let collisionObj = this.isCollidedWith(this.game.tracks[i])
+            if (collisionObj !== false){
+                // console.log(this.isCollidedWith(this.game.tracks[i]))
                 this.velocityY = 0;
-                this.grounded = true;
-                this.landing = true;
+                if (Object.keys(collisionObj).length === 2){
+                    this.landing = false;
+                    this.grounded = true; //means you can't jump until you land
+                } else {
+                    this.landing = collisionObj;
+                    this.grounded = false;
+                }
                 break 
             } else {
+                this.landing = false;
                 this.grounded = false;
             }
         }
     }
 
     landProperly(){
-        
-        //this.grounded = true later
+        if (this.landing !== false){
+            let currentVec = this.vector % (Math.PI * 2)
+            if ( currentVec < Math.PI / 2 && currentVec > 0 ){
+                // console.log("tip left")
+                this.rotation = true
+                this.vector += -Math.PI / 64
+
+            } else if (currentVec > -Math.PI / 2 && currentVec < 0){
+                // console.log("tip right")
+                this.rotation = true
+                this.vector += Math.PI / 64
+            }
+        }
     }
 
-    
+
 
 }
 
