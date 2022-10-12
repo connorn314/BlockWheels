@@ -35,7 +35,7 @@ export default class MovingObject {
         
         let intercept = boundsObject.hitBox.topRight[1] - (slope * boundsObject.hitBox.topRight[0]) 
         
-        if ( y - 3 >= (slope * x) + intercept && x >= boundsObject.hitBox.topLeft[0] && x < boundsObject.hitBox.topRight[0]){
+        if ( y + 3 >= (slope * x) + intercept && x >= boundsObject.hitBox.topLeft[0] && x < boundsObject.hitBox.topRight[0]){
             return true
         } else {
             return false

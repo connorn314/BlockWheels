@@ -26,14 +26,17 @@ export default class Track extends MovingObject {
 
     drawDownHill(){
         this.downHillBox = new Path2D();
-        this.game.ctx.fillStyle = 'orangered';
+        this.game.ctx.fillStyle = '#fef102';
+        this.game.ctx.strokeStyle = '#f01924';
+        this.game.ctx.lineWidth = 15;
         let offsetx = this.positionX - this.game.cameraX
         let offsety = this.positionY - this.game.cameraY
         this.downHillBox.moveTo(offsetx, offsety)
         this.downHillBox.lineTo(offsetx + this.dX, offsety + this.dY)
-        this.downHillBox.lineTo(offsetx + this.dX, offsety + this.dY + 20)
-        this.downHillBox.lineTo(offsetx, offsety + 20)
+        this.downHillBox.lineTo(offsetx + this.dX, offsety + this.dY + 25)
+        this.downHillBox.lineTo(offsetx, offsety + 15)
         this.downHillBox.closePath()
+        this.game.ctx.stroke(this.downHillBox);
         this.game.ctx.fill(this.downHillBox);
     }
 
@@ -64,7 +67,7 @@ export default class Track extends MovingObject {
         return Track.getRandomInt(300, 900)
     }
     generateDY(){ 
-        return Track.getRandomInt(50, 250)
+        return Track.getRandomInt(50, 200)
     }
 
 

@@ -1,5 +1,9 @@
 import Car from "./car";
+import Scoreboard from "./scoreboard";
 import Track from "./track";
+
+
+
 
 export default class BotWheels {
     constructor(canvas){
@@ -8,10 +12,10 @@ export default class BotWheels {
             width: canvas.width, 
             height: canvas.height
         };
-
+        
         this.MAP_WIDTH = 8000;
         this.MAP_HEIGHT = 4000;
-
+        
         this.keyState = {
             spaceDown: false,
             spaceRelease: false,
@@ -20,6 +24,8 @@ export default class BotWheels {
             forward: false
         }
         
+        
+        this.score = document.getElementById("score")
         document.addEventListener('keydown', this.keyDown.bind(this));
         document.addEventListener('keyup', this.keyUp.bind(this));
         canvas.addEventListener('click', this.restartButton.bind(this))
@@ -27,18 +33,11 @@ export default class BotWheels {
 
     }
 
+    //colors: blue (#006fdb), red(#f01924), yellow(#fef102)
     drawBackground(ctx) {
-        ctx.fillStyle = "skyblue";
+        ctx.fillStyle = "#0580ff";
         ctx.fillRect(0, 0, this.MAP_WIDTH, this.MAP_HEIGHT);
     }
-
-    // drawRestart(ctx) {
-    //     ctx.fillStyle = "orangered";
-    //     ctx.fillRect((this.dimensions.width / 12) * 11, (this.dimensions.height / 8) * 7, 60, 60)
-    //     ctx.font = '36px serif';
-    //     ctx.fillStyle = "white";
-    //     ctx.fillText("R", (this.dimensions.width / 16) * 15, (this.dimensions.height / 18) * 17)
-    // }
 
     animate() {
         this.drawBackground(this.ctx);
@@ -46,6 +45,8 @@ export default class BotWheels {
         // this.drawRestart(this.ctx);
         this.animateTracks();
         this.car.animate();
+        // console.log(score)
+        score.innerText = this.scoreboard.keepScore();
         if (this.running === true){
             requestAnimationFrame(this.animate.bind(this));
         }
@@ -54,12 +55,13 @@ export default class BotWheels {
     restart() {
         this.tracks = this.createTracks();
         this.car = new Car(this);
+        this.scoreboard = new Scoreboard(this);
         this.running = false;
         this.play();
     }
 
     restartButton() {
-        while (this.tracks.length > 2){
+        while (this.tracks.length > 11){
             this.tracks.pop()
         }
         // this.tracks[0].firstTrack()
@@ -100,7 +102,6 @@ export default class BotWheels {
                 startingTracks.push(nextTrack)
             }
         }
-        console.log(startingTracks)
         return startingTracks
     }
 

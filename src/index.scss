@@ -1,13 +1,67 @@
-canvas {
-    border: 5px;
-    border-style: solid;
-    border-color: orangered;
+body {
+    background-color: rgb(255, 255, 255);
 }
 
-// h1 {
+#home-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#fake-canvas {
+    width: 900px;
+    height: 600px;
+    border: 10px;
+    background-color: #0580ff;
+    border-style: inset;
+    border-color: #0571ff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+// #fake-car {
+//     position: absolute;
+//     left: 30%;
+//     top: 15%;
+//     width: 80px;
+//     height: 50px;
 //     background-color: orangered;
-//     color: white;
-//     border: 20px;
-//     border-style: solid;
-//     border-color: orangered;
 // }
+
+h1 {
+    font-size: 100px;
+    color: #fef102;
+    background-color: #f01924;
+    font-family: 'Carter One', cursive;
+    border: 5px;
+    border-radius: 50%;
+    border-style: outset;
+    border-color: #f72934;
+    padding: 5%;
+}
+
+#play {
+    background-color: #0571ff;
+    color: white;
+
+}
+
+#game {
+    display: none;
+}
+
+canvas {
+    border: 10px;
+    border-style: inset;
+    border-color: #0571ff;
+}
+
+h3 {
+    position: absolute;
+    left: 20%;
+    font-size: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}

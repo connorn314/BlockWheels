@@ -37,8 +37,10 @@ export default class Car extends MovingObject {
                 this.velocityX = 0;
             }
         } else {
+
             let x = 6 * Math.cos(this.landingVector)
             let y = 6 * Math.tan(this.landingVector)
+
             if ((this.game.keyState.forward === true)){
                 this.velocityX = x;
                 this.velocityY = y;
