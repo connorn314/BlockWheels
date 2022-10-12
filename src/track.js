@@ -6,8 +6,8 @@ export default class Track extends MovingObject {
         super(game)
         this.velocityX = 0
         this.positionY = Track.getRandomInt(0, this.dimensions.height)
-        this.dX = 800
-        this.dY = 100
+        this.dX = this.generateDX();
+        this.dY = this.generateDY();
         this.vector = Math.atan(this.dY/this.dX)
         // this.vector = 0
     }
@@ -58,6 +58,13 @@ export default class Track extends MovingObject {
     boundBy(){ // we'll just focus on the top line of the track at the moment
         this.hitBox.topLeft = [this.positionX, this.positionY]
         this.hitBox.topRight = [this.positionX + this.dX, this.positionY + this.dY]
+    }
+
+    generateDX(){
+        return Track.getRandomInt(300, 900)
+    }
+    generateDY(){ 
+        return Track.getRandomInt(50, 250)
     }
 
 

@@ -27,16 +27,27 @@ export default class Car extends MovingObject {
     }
 
     move(){
+        if (this.grounded === false){
+            if (this.velocityY < CONSTANTS.TERMINAL_VEL){
+                this.velocityY += CONSTANTS.GRAVITY;
+            } 
+            if ((this.game.keyState.forward === true)){
+                this.velocityX = 6;
+            } else {
+                this.velocityX = 0;
+            }
+        } else {
+            let x = 6 * Math.cos(this.landingVector)
+            let y = 6 * Math.tan(this.landingVector)
+            if ((this.game.keyState.forward === true)){
+                this.velocityX = x;
+                this.velocityY = y;
+            } else {
+                this.velocityX = 0;
+            }
+        }
         this.positionX += this.velocityX;
         this.positionY += this.velocityY;
-        if (this.grounded === false && this.velocityY < CONSTANTS.TERMINAL_VEL){
-            this.velocityY += CONSTANTS.GRAVITY;
-        }
-        if ((this.game.keyState.forward === true)){
-            this.velocityX = 4;
-        } else {
-            this.velocityX = 0
-        }
     }
 
     jump(){

@@ -9,8 +9,8 @@ export default class BotWheels {
             height: canvas.height
         };
 
-        this.MAP_WIDTH = 4000;
-        this.MAP_HEIGHT = 2000;
+        this.MAP_WIDTH = 8000;
+        this.MAP_HEIGHT = 4000;
 
         this.keyState = {
             spaceDown: false,
@@ -71,32 +71,36 @@ export default class BotWheels {
 
     play() {
         this.running = true;
-        
         this.animate();
     }
 
     setCamera(){
         this.cameraX = -((this.dimensions.width / 4) - this.car.positionX);
-        if (this.car.positionY <= (this.dimensions.height / 2)){
-            console.log("true")
+        if (this.car.positionY <= (this.dimensions.height / 3)){
             this.cameraY = 0
         } else {
-            this.cameraY = -((this.dimensions.height / 2) - this.car.positionY);
+            this.cameraY = -((this.dimensions.height / 3) - this.car.positionY);
         }
-        console.log(this.cameraY)
-        console.log(this.car.positionY)
     }
 
     createTracks(){
         const startingTracks = []
         let firstTrack = new Track(this)
-        let secondTrack = new Track(this)
         firstTrack.firstTrack()
-        secondTrack.positionX = firstTrack.positionX + firstTrack.dX
-        secondTrack.positionY = firstTrack.positionY + firstTrack.dY / 2
         startingTracks.push(firstTrack)
-        startingTracks.push(secondTrack)
-        
+        for (let i = 0; i < 10; i++){
+            let nextTrack = new Track(this)
+            if (i === 0){
+                nextTrack.positionX = firstTrack.positionX + firstTrack.dX
+                nextTrack.positionY = firstTrack.positionY + firstTrack.dY / 2
+                startingTracks.push(nextTrack)
+            } else {
+                nextTrack.positionX = startingTracks[i].positionX + startingTracks[i].dX + Track.getRandomInt(0, 200)
+                nextTrack.positionY = startingTracks[i].positionY + startingTracks[i].dY 
+                startingTracks.push(nextTrack)
+            }
+        }
+        console.log(startingTracks)
         return startingTracks
     }
 
