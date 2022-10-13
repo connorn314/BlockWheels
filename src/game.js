@@ -13,8 +13,8 @@ export default class BotWheels {
             height: canvas.height
         };
         
-        this.MAP_WIDTH = 8000;
-        this.MAP_HEIGHT = 4000;
+        this.MAP_WIDTH = 11000;
+        this.MAP_HEIGHT = 5000;
         
         this.keyState = {
             spaceDown: false,
@@ -28,12 +28,8 @@ export default class BotWheels {
         this.score = document.getElementById("score")
         document.addEventListener('keydown', this.keyDown.bind(this));
         document.addEventListener('keyup', this.keyUp.bind(this));
-        canvas.addEventListener('click', this.restartButton.bind(this))
-        
-
     }
 
-    //colors: blue (#006fdb), red(#f01924), yellow(#fef102)
     drawBackground(ctx) {
         ctx.fillStyle = "#0580ff";
         ctx.fillRect(0, 0, this.MAP_WIDTH, this.MAP_HEIGHT);
@@ -42,10 +38,8 @@ export default class BotWheels {
     animate() {
         this.drawBackground(this.ctx);
         this.setCamera();
-        // this.drawRestart(this.ctx);
         this.animateTracks();
         this.car.animate();
-        // console.log(score)
         score.innerText = this.scoreboard.keepScore();
         if (this.running === true){
             requestAnimationFrame(this.animate.bind(this));
@@ -61,14 +55,23 @@ export default class BotWheels {
     }
 
     restartButton() {
-        while (this.tracks.length > 11){
+        while (this.tracks.length > 13){
             this.tracks.pop()
         }
-        // this.tracks[0].firstTrack()
         this.car.positionX = this.dimensions.width / 4
         this.car.positionY = this.dimensions.height / 4
         this.car.vector = 0
-        // this.grounded = false
+        this.scoreboard.accumulatedScore = 0
+    }
+
+    pause(){
+        this.running = false
+    }
+
+    unpause(){
+        if (this.running === false){
+            this.play()
+        }
     }
 
     play() {
@@ -87,14 +90,14 @@ export default class BotWheels {
 
     createTracks(){
         const startingTracks = []
-        let firstTrack = new Track(this)
+        let firstTrack = new Track(this, 1500, 0)
         firstTrack.firstTrack()
         startingTracks.push(firstTrack)
         for (let i = 0; i < 10; i++){
             let nextTrack = new Track(this)
             if (i === 0){
                 nextTrack.positionX = firstTrack.positionX + firstTrack.dX
-                nextTrack.positionY = firstTrack.positionY + firstTrack.dY / 2
+                nextTrack.positionY = firstTrack.positionY + 50
                 startingTracks.push(nextTrack)
             } else {
                 nextTrack.positionX = startingTracks[i].positionX + startingTracks[i].dX + Track.getRandomInt(0, 200)
@@ -102,17 +105,43 @@ export default class BotWheels {
                 startingTracks.push(nextTrack)
             }
         }
+        let lastTrack = new Track(this, 1500, 0)
+        let finalIndex = startingTracks.length - 1
+        lastTrack.positionX = startingTracks[finalIndex].positionX + startingTracks[finalIndex].dX + Track.getRandomInt(0, 200)
+        lastTrack.positionY = startingTracks[finalIndex].positionY + startingTracks[finalIndex].dY 
+        console.log(lastTrack)
+        startingTracks.push(lastTrack)
+        console.log(startingTracks)
         return startingTracks
     }
 
     regulateTracks(){
-        // if (this.tracks[this.tracks.length - 1].hitBox.topRight[0] < this.dimensions.width){
-        //     let nextTrack = new Track(this)
-        //     this.tracks.push(nextTrack)
-        // } 
-        // if (this.tracks[0].hitBox.topRight[0] < 0){
-        //     this.tracks.shift()
-        // }
+        if (this.car.positionX - this.tracks[this.tracks.length - 1].positionX > 450){
+            this.scoreboard.accumulatedScore += this.scoreboard.currentScore
+            this.car.positionX = this.dimensions.width / 5 + 450
+            this.car.positionY = 354 
+            while (this.tracks.length > 1){
+                this.tracks.pop()
+            }
+            for (let i = 0; i < 10; i++){
+                let nextTrack = new Track(this)
+                if (i === 0){
+                    nextTrack.positionX = this.tracks[i].positionX + this.tracks[i].dX
+                    nextTrack.positionY = this.tracks[i].positionY + 50
+                    this.tracks.push(nextTrack)
+                } else {
+                    nextTrack.positionX = this.tracks[i].positionX + this.tracks[i].dX + Track.getRandomInt(0, 200)
+                    nextTrack.positionY = this.tracks[i].positionY + this.tracks[i].dY 
+                    this.tracks.push(nextTrack)
+                }
+            }
+            let lastTrack = new Track(this, 1500, 0)
+            let finalIndex = this.tracks.length - 1
+            lastTrack.positionX = this.tracks[finalIndex].positionX + this.tracks[finalIndex].dX + Track.getRandomInt(0, 200)
+            lastTrack.positionY = this.tracks[finalIndex].positionY + this.tracks[finalIndex].dY 
+            console.log(lastTrack)
+            this.tracks.push(lastTrack)
+        }
     }
 
     animateTracks(){

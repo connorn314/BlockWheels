@@ -36,6 +36,43 @@ h1 {
   padding: 5%;
 }
 
+#pause-menu {
+  display: none;
+}
+
+#pause {
+  position: absolute;
+  left: 20%;
+  top: 60%;
+  font-size: 50px;
+  font-family: "Carter One", cursive;
+  color: white;
+}
+
+#pause:hover {
+  color: #fef102;
+  cursor: pointer;
+}
+
+ul {
+  text-align: center;
+  list-style: none;
+}
+
+li {
+  font-family: "Carter One", cursive;
+  color: white;
+  display: block;
+  font-size: 40px;
+  padding: 10px;
+  padding-right: 60px;
+}
+
+li:hover {
+  color: #fef102;
+  cursor: pointer;
+}
+
 #play {
   background-color: #0571ff;
   color: white;
@@ -51,10 +88,13 @@ canvas {
   border-color: #0571ff;
 }
 
-h3 {
+#score {
   position: absolute;
   left: 20%;
   font-size: 50px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Carter One", cursive;
   color: white;
+  border-color: #fef102;
+  border-radius: 10%;
+  border: 10px;
 }

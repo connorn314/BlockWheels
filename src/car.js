@@ -12,6 +12,8 @@ export default class Car extends MovingObject {
         this.grounded = false;
         this.rotation = true;
         this.landing = false;
+        this.spriteNum = 0
+        this.stagger = 5
         this.hypotenuse = Math.sqrt(Math.pow(CONSTANTS.CAR_WIDTH/2, 2) + Math.pow(CONSTANTS.CAR_HEIGHT/2, 2))
         this.theta = Math.atan((CONSTANTS.CAR_HEIGHT/2)/(CONSTANTS.CAR_WIDTH/2))
     }
@@ -24,6 +26,13 @@ export default class Car extends MovingObject {
         this.isBoundBy();
         this.landedOnTrack();
         this.landProperly();
+        if (this.game.keyState.forward === true){
+            this.stagger -= 1
+            if (this.stagger === 0){
+                this.stagger = 5
+                this.spriteNum += 1
+            }
+        }
     }
 
     move(){
@@ -81,7 +90,8 @@ export default class Car extends MovingObject {
     }
 
     drawCar(){
-        this.carBox = new Path2D();
+        // this.carBox = new Path2D();
+        this.carBox = document.getElementById("car-sprites")
         this.game.ctx.save()
         this.center = [this.positionX + CONSTANTS.CAR_WIDTH/2, this.positionY + CONSTANTS.CAR_HEIGHT/2]
         if (this.rotation === true || this.vector != 0){
@@ -89,9 +99,29 @@ export default class Car extends MovingObject {
             this.game.ctx.rotate(this.vector % (Math.PI * 2));
             this.game.ctx.translate(-(this.center[0] - this.game.cameraX), -(this.center[1] - this.game.cameraY));
         }
-        this.carBox.rect(this.positionX - this.game.cameraX, this.positionY - this.game.cameraY, CONSTANTS.CAR_WIDTH, CONSTANTS.CAR_HEIGHT);
-        this.game.ctx.fillStyle = 'orangered';
-        this.game.ctx.fill(this.carBox)
+        // this.carBox.rect(
+        //     this.positionX - this.game.cameraX, 
+        //     this.positionY - this.game.cameraY, 
+        //     CONSTANTS.CAR_WIDTH, 
+        //     CONSTANTS.CAR_HEIGHT
+        //     );
+        let sx = (this.spriteNum % 4) * 40
+        let sy = 0
+        this.game.ctx.drawImage(
+            this.carBox,
+            sx,
+            sy,
+            40,
+            30,
+            this.positionX - this.game.cameraX, 
+            this.positionY - this.game.cameraY,
+            CONSTANTS.CAR_WIDTH,
+            CONSTANTS.CAR_HEIGHT,
+
+
+        );
+        // this.game.ctx.fillStyle = 'orangered';
+        // this.game.ctx.fill(this.carBox)
         // this.game.ctx.fillRect(this.positionX, this.positionY, CONSTANTS.CAR_WIDTH, CONSTANTS.CAR_HEIGHT);
         this.game.ctx.restore()
     }

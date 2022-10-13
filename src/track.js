@@ -2,12 +2,16 @@ import MovingObject from "./moving_object";
 
 
 export default class Track extends MovingObject {
-    constructor(game){
+    constructor(game, DX, DY){
         super(game)
         this.velocityX = 0
         this.positionY = Track.getRandomInt(0, this.dimensions.height)
-        this.dX = this.generateDX();
-        this.dY = this.generateDY();
+        this.dX = DX
+        this.dY = DY
+        if (this.dX === undefined && this.dY === undefined){
+            this.dX = this.generateDX();
+            this.dY = this.generateDY();
+        }
         this.vector = Math.atan(this.dY/this.dX)
         // this.vector = 0
     }
@@ -40,13 +44,13 @@ export default class Track extends MovingObject {
         this.game.ctx.fill(this.downHillBox);
     }
 
-    drawFlat(){
-        this.trackBox = new Path2D();
-        this.center = [this.positionX + T_CONSTANTS.TRACK_L/2, this.positionY + T_CONSTANTS.TRACK_H/2]
-        this.trackBox.rect(this.positionX - this.game.cameraX, this.positionY, T_CONSTANTS.TRACK_L, T_CONSTANTS.TRACK_H)
-        this.game.ctx.fillStyle = "orangered"
-        this.game.ctx.fill(this.trackBox)
-    }
+    // drawFlat(){
+    //     this.trackBox = new Path2D();
+    //     this.center = [this.positionX + T_CONSTANTS.TRACK_L/2, this.positionY + T_CONSTANTS.TRACK_H/2]
+    //     this.trackBox.rect(this.positionX - this.game.cameraX, this.positionY, T_CONSTANTS.TRACK_L, T_CONSTANTS.TRACK_H)
+    //     this.game.ctx.fillStyle = "orangered"
+    //     this.game.ctx.fill(this.trackBox)
+    // }
 
 
 
