@@ -54,11 +54,10 @@ This project will be implemented with the following technologies:
   - Webpack and Babel to transpile and bundle JS code
   - npm to manage project dependencies
   
-
-![Uploading <img width="943" alt="Screen Shot 2022-10-13 at 12 16 42 PM" src="https://user-images.githubusercontent.com/51464137/195689741-6109f84c-232b-4893-b1dd-d3a389eb2867.png">
+<img width="944" alt="Screen Shot 2022-10-13 at 12 16 19 PM" src="https://user-images.githubusercontent.com/51464137/195689946-70076acf-d995-4755-89be-16c8a0bb1d2e.png">
 <img width="948" alt="Screen Shot 2022-10-13 at 12 17 04 PM" src="https://user-images.githubusercontent.com/51464137/195689744-a12a0633-65c3-4331-87d5-2e16611909c3.png">
 <img width="964" alt="Screen Shot 2022-10-13 at 12 17 27 PM" src="https://user-images.githubusercontent.com/51464137/195689746-e5b896b8-d89c-49de-8caa-1c81b35c05d4.png">
-Screen Shot 2022-10-13 at 12.16.19 PM.png…]()
+<img width="964" alt="Screen Shot 2022-10-13 at 12 17 27 PM" src="https://user-images.githubusercontent.com/51464137/195689974-cb89e1f6-cceb-4386-a657-fa91a5cf3944.png">
 
 
 
