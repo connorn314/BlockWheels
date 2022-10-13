@@ -55,9 +55,10 @@ This project will be implemented with the following technologies:
   - npm to manage project dependencies
   
 <img width="944" alt="Screen Shot 2022-10-13 at 12 16 19 PM" src="https://user-images.githubusercontent.com/51464137/195689946-70076acf-d995-4755-89be-16c8a0bb1d2e.png">
+<img width="943" alt="Screen Shot 2022-10-13 at 12 16 42 PM" src="https://user-images.githubusercontent.com/51464137/195690100-a45d19e7-0170-4d41-88d6-15f368449a0c.png">
 <img width="948" alt="Screen Shot 2022-10-13 at 12 17 04 PM" src="https://user-images.githubusercontent.com/51464137/195689744-a12a0633-65c3-4331-87d5-2e16611909c3.png">
 <img width="964" alt="Screen Shot 2022-10-13 at 12 17 27 PM" src="https://user-images.githubusercontent.com/51464137/195689746-e5b896b8-d89c-49de-8caa-1c81b35c05d4.png">
-<img width="964" alt="Screen Shot 2022-10-13 at 12 17 27 PM" src="https://user-images.githubusercontent.com/51464137/195689974-cb89e1f6-cceb-4386-a657-fa91a5cf3944.png">
+
 
 
 
