@@ -1,5 +1,9 @@
 import BotWheels from "./game";
 
+const instructions = document.getElementById("instructions")
+const instructionPage = document.getElementById("instruction-page")
+const playAfterInstruction = document.getElementById("play-after-instructions")
+const homeAfterInstruction = document.getElementById("home-after-instructions")
 const playButton = document.getElementById("play");
 const homePage = document.getElementById("home-page");
 const game = document.getElementById("game");
@@ -20,6 +24,30 @@ canvas.height = 600;
 const botWheels1 = new BotWheels(canvas);
 botWheels1.restart();
 
+instructions.addEventListener("click", () => {
+    homePage.style.display = "none";
+    instructionPage.style.display = "flex";
+    instructionPage.style.flexDirection = "column";
+    instructionPage.style.alignItems = "center";
+})
+
+playAfterInstruction.addEventListener("click", () => {
+    botWheels1.unpause();
+    botWheels1.restartButton();
+    instructionPage.style.display = "none";
+    game.style.display = "flex";
+    game.style.flexDirection = "column";
+    game.style.alignItems = "center";
+})
+
+homeAfterInstruction.addEventListener("click", () => {
+    paused = false
+    instructionPage.style.display = "none"
+    homePage.style.display = "flex";
+    homePage.style.flexDirection = "column";
+    homePage.style.alignItems = "center";
+})
+
 playButton.addEventListener("click", () => {
     botWheels1.unpause();
     botWheels1.restartButton();
@@ -29,6 +57,7 @@ playButton.addEventListener("click", () => {
     game.style.alignItems = "center";
     
 })
+
 pause.addEventListener("click", () => {
     if (paused === false){
         paused = true;

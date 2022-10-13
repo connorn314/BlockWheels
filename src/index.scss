@@ -8,7 +8,7 @@ body {
     align-items: center;
 }
 
-#fake-canvas {
+#fake-canvas, #fake-canvas-2 {
     width: 900px;
     height: 600px;
     border: 10px;
@@ -19,6 +19,47 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+#instruction-page {
+    display: none;
+}
+
+#instructional-elements, #leave-instructions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+
+
+#key-legend {
+    background-color: #f72934;
+    border: 5px;
+    border-radius: 5%;
+    border-style: outset;
+    border-color: #f01924;
+}
+
+#key-legend li {
+    font-family: 'Carter One', cursive;
+    color: white;
+    display: block;
+    font-size: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 25px;
+}
+
+#arrows {
+    height: auto;
+    max-width: 30%;
+}
+
+#space-bar {
+    height: auto;
+    max-width: 20%;
 }
 
 h1 {
@@ -55,8 +96,6 @@ h1 {
     font-size: 30px;
 }
 
-
-
 #restart-after-game:hover {
     cursor: pointer;
     color: #fef102;
@@ -79,12 +118,12 @@ h1 {
     cursor: pointer;
 }
 
-ul {
+#paused-options {
     text-align: center;
     list-style: none;
 }
 
-li {
+#paused-options li {
     font-family: 'Carter One', cursive;
     color: white;
     display: block;
@@ -93,17 +132,34 @@ li {
     padding-right: 60px;
 }
 
-li:hover {
+#paused-options li:hover {
     color: #fef102;
     cursor: pointer;
 }
 
 
 
-#play {
+#play, #instructions, #play-after-instructions, #home-after-instructions {
     background-color: #0571ff;
     color: white;
+    font-size: 50px;
+    font-family: 'Carter One', cursive;
+    color: white;
+    border: 5px;
+    border-radius: 10%;
+    border-color: #0571ff;
+    border-style: outset;
+    padding: 10px;
+}
 
+#instructions {
+    font-size: 30px;
+}
+
+
+#play:hover, #instructions:hover, #play-after-instructions:hover, #home-after-instructions:hover {
+    color: #fef102;
+    cursor: pointer;
 }
 
 #game {

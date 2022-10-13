@@ -15,14 +15,35 @@
     <img src="src/New Piskel (1).png" id="car-sprites" hidden>
     <div id="home-page">
         <div id="fake-canvas">
+            <button id="instructions">
+                Instructions
+            </button>
             <h1>BlockWheels</h1>
             <button id="play">
                 Play
             </button>
         </div>
     </div>
+    <div id="instruction-page">
+        <div id="fake-canvas-2">
+            <div id="instructional-elements">
+                <img src="src/spaceBar.png" id="space-bar">
+                <img src="src/arrowKeys.png" id="arrows">
+
+            </div>
+            <ul id="key-legend">
+                <li>Space Bar: press to jump, hold to charge jump</li>
+                <li>Left/Right Arrows: hold to rotate backward/forward while in the air</li>
+                <li>Up Arrow: hold to accelerate forward</li>
+            </ul>
+            <div id="leave-instructions">
+                <button id="play-after-instructions">Play Game</button>
+                <button id="home-after-instructions">Return Home</button>
+            </div>
+        </div>
+    </div>
     <div id="pause-menu">
-        <ul>
+        <ul id="paused-options">
             <li id="unpause">RESUME</li>
             <li id="back-to-home">HOME</li>
             <li id="restart">RESTART</li>
