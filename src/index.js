@@ -1,7 +1,6 @@
 import BotWheels from "./game";
 
-// const github = document.getElementById("github")
-// const linkedin = document.getElementById("linkedin")
+
 const instructions = document.getElementById("instructions")
 const instructionPage = document.getElementById("instruction-page")
 const playAfterInstruction = document.getElementById("play-after-instructions")
