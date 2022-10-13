@@ -13,7 +13,6 @@ export default class Track extends MovingObject {
             this.dY = this.generateDY();
         }
         this.vector = Math.atan(this.dY/this.dX)
-        // this.vector = 0
     }
 
     firstTrack(){
@@ -23,7 +22,6 @@ export default class Track extends MovingObject {
 
     animate(){
         this.moveTrack()
-        // this.drawFlat()
         this.drawDownHill()
         this.boundBy()
     }
@@ -43,16 +41,6 @@ export default class Track extends MovingObject {
         this.game.ctx.stroke(this.downHillBox);
         this.game.ctx.fill(this.downHillBox);
     }
-
-    // drawFlat(){
-    //     this.trackBox = new Path2D();
-    //     this.center = [this.positionX + T_CONSTANTS.TRACK_L/2, this.positionY + T_CONSTANTS.TRACK_H/2]
-    //     this.trackBox.rect(this.positionX - this.game.cameraX, this.positionY, T_CONSTANTS.TRACK_L, T_CONSTANTS.TRACK_H)
-    //     this.game.ctx.fillStyle = "orangered"
-    //     this.game.ctx.fill(this.trackBox)
-    // }
-
-
 
     drawCurve(){
 
@@ -82,7 +70,6 @@ export default class Track extends MovingObject {
 
 const T_CONSTANTS = {
     TRACK_H: 20,
-    TRACK_L: 900, //Track.getRandomInt(500, 900)
+    TRACK_L: 900, 
     VECTOR: Math.PI / 32
-    // SPEED: 5
 }

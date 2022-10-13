@@ -4,12 +4,15 @@ const playButton = document.getElementById("play");
 const homePage = document.getElementById("home-page");
 const game = document.getElementById("game");
 const canvas = document.getElementById("canvas");
-let paused = false
+const score = document.getElementById("score");
+let paused = false;
 const pause = document.getElementById("pause");
 const pauseMenu = document.getElementById("pause-menu");
-const unpause = document.getElementById("unpause")
-const home = document.getElementById("back-to-home")
-const restart = document.getElementById("restart")
+const unpause = document.getElementById("unpause");
+const home = document.getElementById("back-to-home");
+const restart = document.getElementById("restart");
+const gameOver = document.getElementById("game-over");
+const restartAfterGame = document.getElementById("restart-after-game");
 
 canvas.width = 900;
 canvas.height = 600;
@@ -67,6 +70,19 @@ restart.addEventListener("click", () => {
     botWheels1.unpause();
     botWheels1.restartButton();
     pauseMenu.style.display = "none";
+})
+
+restartAfterGame.addEventListener("click", () => {
+    paused = false
+    botWheels1.unpause();
+    botWheels1.restartButton();
+    gameOver.style.display = "none";
+    score.style.display = "flex";
+    score.style.position = "absolute";
+    score.style.left = "20%";
+    score.style.fontSize = "50px";
+    score.style.fontFamily = "'Carter One', cursive";
+    score.style.color = "white";
 })
 
 

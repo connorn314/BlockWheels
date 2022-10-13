@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(240, 240, 240);
 }
 
 #home-page {
@@ -31,6 +31,35 @@ h1 {
     border-style: outset;
     border-color: #f72934;
     padding: 5%;
+}
+
+#game-over {
+    display: none;
+}
+
+#game-over-title, #final-score, #restart-after-game {
+    font-family: 'Carter One', cursive;
+    color: white;
+    display: block;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#game-over-title {
+    font-size: 40px;
+}
+#final-score {
+    font-size: 25px;
+}
+#restart-after-game {
+    font-size: 30px;
+}
+
+
+
+#restart-after-game:hover {
+    cursor: pointer;
+    color: #fef102;
 }
 
 #pause-menu {
@@ -93,7 +122,4 @@ canvas {
     font-size: 50px;
     font-family: 'Carter One', cursive;
     color: white;
-    border-color: #fef102;
-    border-radius: 10%;
-    border: 10px;
 }

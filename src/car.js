@@ -90,7 +90,6 @@ export default class Car extends MovingObject {
     }
 
     drawCar(){
-        // this.carBox = new Path2D();
         this.carBox = document.getElementById("car-sprites")
         this.game.ctx.save()
         this.center = [this.positionX + CONSTANTS.CAR_WIDTH/2, this.positionY + CONSTANTS.CAR_HEIGHT/2]
@@ -99,12 +98,6 @@ export default class Car extends MovingObject {
             this.game.ctx.rotate(this.vector % (Math.PI * 2));
             this.game.ctx.translate(-(this.center[0] - this.game.cameraX), -(this.center[1] - this.game.cameraY));
         }
-        // this.carBox.rect(
-        //     this.positionX - this.game.cameraX, 
-        //     this.positionY - this.game.cameraY, 
-        //     CONSTANTS.CAR_WIDTH, 
-        //     CONSTANTS.CAR_HEIGHT
-        //     );
         let sx = (this.spriteNum % 4) * 40
         let sy = 0
         this.game.ctx.drawImage(
@@ -117,12 +110,7 @@ export default class Car extends MovingObject {
             this.positionY - this.game.cameraY,
             CONSTANTS.CAR_WIDTH,
             CONSTANTS.CAR_HEIGHT,
-
-
         );
-        // this.game.ctx.fillStyle = 'orangered';
-        // this.game.ctx.fill(this.carBox)
-        // this.game.ctx.fillRect(this.positionX, this.positionY, CONSTANTS.CAR_WIDTH, CONSTANTS.CAR_HEIGHT);
         this.game.ctx.restore()
     }
 
@@ -172,7 +160,7 @@ export default class Car extends MovingObject {
                 this.landingVector = this.game.tracks[i].vector
                 if (Object.keys(collisionObj).length === 2){
                     this.landing = false;
-                    this.grounded = true; //means you can't jump until you land
+                    this.grounded = true;
                     this.vector = this.landingVector
                 } else {
                     this.landing = collisionObj;
@@ -206,6 +194,8 @@ export default class Car extends MovingObject {
                     this.rotation = true
                     this.vector += Math.PI / 64
                 }
+            } else {
+                this.game.gameOver();
             }
         }
     }

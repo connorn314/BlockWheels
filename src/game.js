@@ -24,7 +24,9 @@ export default class BotWheels {
             forward: false
         }
         
-        
+        this.gameIsOver = false
+        this.gameOverElement = document.getElementById("game-over")
+        this.finalScore = document.getElementById("final-score")
         this.score = document.getElementById("score")
         document.addEventListener('keydown', this.keyDown.bind(this));
         document.addEventListener('keyup', this.keyUp.bind(this));
@@ -55,6 +57,7 @@ export default class BotWheels {
     }
 
     restartButton() {
+        this.gameIsOver = false;
         while (this.tracks.length > 13){
             this.tracks.pop()
         }
@@ -72,6 +75,24 @@ export default class BotWheels {
         if (this.running === false){
             this.play()
         }
+    }
+
+    gameOver(){
+        this.finalScore.innerText = `Final Score: ${this.scoreboard.keepScore()}`;
+        this.gameIsOver = true
+        this.score.style.display = "none"
+        this.gameOverElement.style.display = "flex"
+        this.gameOverElement.style.position = "absolute";
+        this.gameOverElement.style.flexDirection = "column";
+        this.gameOverElement.style.alignItems = "center";
+        this.gameOverElement.style.left = "40%";
+        this.gameOverElement.style.top = "25%";
+        this.gameOverElement.style.backgroundColor = "#f01924";
+        this.gameOverElement.style.border = "10px";
+        this.gameOverElement.style.borderRadius = "10%";
+        this.gameOverElement.style.borderColor = "#f72934"
+        this.gameOverElement.style.borderStyle = "outset";
+
     }
 
     play() {
@@ -109,9 +130,7 @@ export default class BotWheels {
         let finalIndex = startingTracks.length - 1
         lastTrack.positionX = startingTracks[finalIndex].positionX + startingTracks[finalIndex].dX + Track.getRandomInt(0, 200)
         lastTrack.positionY = startingTracks[finalIndex].positionY + startingTracks[finalIndex].dY 
-        console.log(lastTrack)
         startingTracks.push(lastTrack)
-        console.log(startingTracks)
         return startingTracks
     }
 
@@ -139,7 +158,6 @@ export default class BotWheels {
             let finalIndex = this.tracks.length - 1
             lastTrack.positionX = this.tracks[finalIndex].positionX + this.tracks[finalIndex].dX + Track.getRandomInt(0, 200)
             lastTrack.positionY = this.tracks[finalIndex].positionY + this.tracks[finalIndex].dY 
-            console.log(lastTrack)
             this.tracks.push(lastTrack)
         }
     }
@@ -152,14 +170,16 @@ export default class BotWheels {
     }
     
     keyDown(e){ // dry up this code
-        if (e.code === "Space" && this.running === true){
-            this.keyState.spaceDown = true;
-        } else if (e.code === "ArrowLeft" && this.running === true){
-            this.keyState.leftDown = true;
-        }  else if (e.code === "ArrowRight" && this.running === true){
-            this.keyState.rightDown = true;
-        } else if (e.code === "ArrowUp" && this.running ===  true){
-            this.keyState.forward = true;
+        if (this.gameIsOver === false){
+            if (e.code === "Space" && this.running === true){
+                this.keyState.spaceDown = true;
+            } else if (e.code === "ArrowLeft" && this.running === true){
+                this.keyState.leftDown = true;
+            }  else if (e.code === "ArrowRight" && this.running === true){
+                this.keyState.rightDown = true;
+            } else if (e.code === "ArrowUp" && this.running ===  true){
+                this.keyState.forward = true;
+            }
         }
     }
 
