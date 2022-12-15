@@ -63,7 +63,7 @@ playButton.addEventListener("click", () => {
 })
 
 pause.addEventListener("click", () => {
-    if (paused === false){
+    if (paused === false ){
         paused = true;
         botWheels1.pause();
         pauseMenu.style.display = "flex";

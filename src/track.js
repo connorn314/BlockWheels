@@ -56,10 +56,10 @@ export default class Track extends MovingObject {
     }
 
     generateDX(){
-        return Track.getRandomInt(300, 900)
+        return Track.getRandomInt(700, 1000)
     }
     generateDY(){ 
-        return Track.getRandomInt(50, 200)
+        return Track.getRandomInt(50, 150)
     }
 
 

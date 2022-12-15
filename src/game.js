@@ -63,6 +63,9 @@ export default class BotWheels {
         }
         this.car.positionX = this.dimensions.width / 4
         this.car.positionY = this.dimensions.height / 4
+        this.car.accelerationX = 0
+        this.car.velocityX = 0
+        this.car.velocityY = 0
         this.car.vector = 0
         this.scoreboard.accumulatedScore = 0
     }

@@ -24,7 +24,7 @@ body {
 
 #links {
     position: absolute;
-    left: 75%;
+    right: 50px;
 }
 
 #github, #linkedin {
@@ -201,9 +201,6 @@ canvas {
     border: 10px;
     border-style: inset;
     border-color: #0571ff;
-    position: absolute;
-    left: 0px;
-    top: 0px;
 }
 
 #score-div, #pause {
