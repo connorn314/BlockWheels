@@ -69,8 +69,8 @@ export default class Car extends MovingObject {
 
     jump(){
         if (this.game.keyState.spaceDown === true){
-            if (this.jumpPower <= 1.5){
-                this.jumpPower += .25;
+            if (this.jumpPower <= 1.8){
+                this.jumpPower += .1;
             } 
         } else if (this.game.keyState.spaceRelease === true) {
             if (this.grounded === true){

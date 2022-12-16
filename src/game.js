@@ -26,8 +26,9 @@ export default class BotWheels {
         
         this.gameIsOver = false
         this.gameOverElement = document.getElementById("game-over")
+        this.pauseButton = document.getElementById("pause")
         this.finalScore = document.getElementById("final-score")
-        this.score = document.getElementById("score")
+        this.score = document.getElementById("score-div")
         document.addEventListener('keydown', this.keyDown.bind(this));
         document.addEventListener('keyup', this.keyUp.bind(this));
     }
@@ -84,12 +85,14 @@ export default class BotWheels {
         this.finalScore.innerText = `Final Score: ${this.scoreboard.keepScore()}`;
         this.gameIsOver = true
         this.score.style.display = "none"
+        this.pauseButton.style.display = "none"
         this.gameOverElement.style.display = "flex"
         this.gameOverElement.style.position = "absolute";
         this.gameOverElement.style.flexDirection = "column";
         this.gameOverElement.style.alignItems = "center";
-        this.gameOverElement.style.left = "40%";
-        this.gameOverElement.style.top = "25%";
+        this.gameOverElement.style.left = "35%";
+        this.gameOverElement.style.top = "24%";
+        this.gameOverElement.style.width = "30%";
         this.gameOverElement.style.backgroundColor = "#f01924";
         this.gameOverElement.style.border = "10px";
         this.gameOverElement.style.borderRadius = "10%";
