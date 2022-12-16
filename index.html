@@ -14,63 +14,74 @@
 </head>
 <body>
     <img src="src/New Piskel (1).png" id="car-sprites" hidden>
-    <div id="links">
-        <ul id="link-list">
-            <li>
-                <a href="https://github.com/connorn314/BlockWheels" target="_blank"><i class="fa fa-github" id="github"></i></a>
-            </li>
-            <li>
-                <a href="https://www.linkedin.com/in/connor-norton-318b0a19a/" target="_blank"><i class="fa fa-linkedin" id="linkedin" aria-hidden="true"></i></a>
-            </li>
-        </ul>
-    </div>
-    <div id="home-page">
-        <div id="fake-canvas">
-            <button id="instructions">
-                Instructions
-            </button>
-            <h1>BlockWheels</h1>
-            <button id="play">
-                Play
-            </button>
-        </div>
-    </div>
-    <div id="instruction-page">
-        <div id="fake-canvas-2">
-            <div id="instructional-elements">
-                <img src="src/spaceBar.png" id="space-bar">
-                <img src="src/arrowKeys.png" id="arrows">
-
-            </div>
-            <ul id="key-legend">
-                <li>Space Bar: press to jump, hold to charge jump</li>
-                <li>Left/Right Arrows: hold to rotate backward/forward while in the air</li>
-                <li>Up Arrow: hold to accelerate forward</li>
-            </ul>
-            <div id="leave-instructions">
-                <button id="play-after-instructions">Play Game</button>
-                <button id="home-after-instructions">Return Home</button>
-            </div>
-        </div>
-    </div>
-    <div id="pause-menu">
-        <ul id="paused-options">
-            <li id="unpause">RESUME</li>
-            <li id="back-to-home">HOME</li>
-            <li id="restart">RESTART</li>
-        </ul>
-    </div>
-    <div id="game-over">
-        <h2 id="game-over-title"> Game Over! </h2>
-        <h3 id="final-score"></h3>
-        <h2 id="restart-after-game">Restart</h2>
-    </div>
     <div id="game">
-        <h3 id="score"></h3>
-        <div id="pause">
-            <h4> ll </h4>
+        <div id="permanent-view">
+            <div id="links">
+                <ul id="link-list">
+                    <li>
+                        <a href="https://github.com/connorn314/BlockWheels" target="_blank"><i class="fa fa-github" id="github"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/connor-norton-318b0a19a/" target="_blank"><i class="fa fa-linkedin" id="linkedin" aria-hidden="true"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <div id="home-page">
+                <div id="fake-canvas">
+                    <button id="instructions">
+                        Instructions
+                    </button>
+                    <h1>BlockWheels</h1>
+                    <button id="play">
+                        Play
+                    </button>
+                </div>
+            </div>
+            <div id="instruction-page">
+                <div id="fake-canvas-2">
+                    <div id="instructional-elements">
+                        <img src="src/spaceBar.png" id="space-bar">
+                        <img src="src/arrowKeys.png" id="arrows">
+        
+                    </div>
+                    <ul id="key-legend">
+                        <li>Space Bar: press to jump, hold to charge jump</li>
+                        <li>Left/Right Arrows: hold to rotate backward/forward while in the air</li>
+                        <li>Up Arrow: hold to accelerate forward</li>
+                    </ul>
+                    <div id="leave-instructions">
+                        <button id="play-after-instructions">Play Game</button>
+                        <button id="home-after-instructions">Return Home</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="game-view">
+                <canvas id="canvas"></canvas>
+                <div id="pause-menu">
+                    <ul id="paused-options">
+                        <li id="unpause">RESUME</li>
+                        <li id="back-to-home">HOME</li>
+                        <li id="restart">RESTART</li>
+                    </ul>
+                </div>
+                <div id="score-div">
+                    <h3 id="score"></h3>
+                </div>
+                <div id="pause">
+                    <p> ll </p>
+                </div>
+    
+                <div id="game-over">
+                    <h2 id="game-over-title"> Game Over! </h2>
+                    <h3 id="final-score"></h3>
+                    <h2 id="restart-after-game">Restart</h2>
+                </div>
+            </div>
         </div>
-        <canvas id="canvas"></canvas>
+
+
+        
     </div>
 </body>
 </html>

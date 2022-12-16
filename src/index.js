@@ -8,6 +8,7 @@ const homeAfterInstruction = document.getElementById("home-after-instructions")
 const playButton = document.getElementById("play");
 const homePage = document.getElementById("home-page");
 const game = document.getElementById("game");
+const gameView = document.getElementById("game-view");
 const canvas = document.getElementById("canvas");
 const score = document.getElementById("score");
 let paused = false;
@@ -36,9 +37,10 @@ playAfterInstruction.addEventListener("click", () => {
     botWheels1.unpause();
     botWheels1.restartButton();
     instructionPage.style.display = "none";
-    game.style.display = "flex";
-    game.style.flexDirection = "column";
-    game.style.alignItems = "center";
+    gameView.style.display = "flex";
+    gameView.style.flexDirection = "column";
+    gameView.style.alignItems = "center";
+    gameView.style.position = "relative";
 })
 
 homeAfterInstruction.addEventListener("click", () => {
@@ -53,21 +55,22 @@ playButton.addEventListener("click", () => {
     botWheels1.unpause();
     botWheels1.restartButton();
     homePage.style.display = "none";
-    game.style.display = "flex";
-    game.style.flexDirection = "column";
-    game.style.alignItems = "center";
+    gameView.style.display = "flex";
+    gameView.style.flexDirection = "column";
+    gameView.style.alignItems = "center";
+    gameView.style.position = "absolute";
     
 })
 
 pause.addEventListener("click", () => {
-    if (paused === false){
+    if (paused === false ){
         paused = true;
         botWheels1.pause();
         pauseMenu.style.display = "flex";
         pauseMenu.style.position = "absolute";
         pauseMenu.style.flexDirection = "column";
-        pauseMenu.style.left = "40%";
-        pauseMenu.style.top = "25%";
+        pauseMenu.style.left = "310px";
+        pauseMenu.style.top = "160px";
         pauseMenu.style.backgroundColor = "#f01924";
         pauseMenu.style.border = "10px";
         pauseMenu.style.borderRadius = "10%";
@@ -88,7 +91,7 @@ unpause.addEventListener("click", () => {
 
 home.addEventListener("click", () => {
     paused = false
-    game.style.display = "none"
+    gameView.style.display = "none"
     pauseMenu.style.display = "none"
     homePage.style.display = "flex";
     homePage.style.flexDirection = "column";

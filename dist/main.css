@@ -26,14 +26,14 @@ body {
 
 #links {
   position: absolute;
-  left: 75%;
+  right: 50px;
 }
 
 #github, #linkedin {
   color: white;
 }
 
-#home-page {
+#home-page, #permanent-view {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -127,27 +127,13 @@ h1 {
   font-size: 30px;
 }
 
-#restart-after-game:hover {
+#restart-after-game:hover, #pause:hover {
   cursor: pointer;
   color: #fef102;
 }
 
 #pause-menu {
   display: none;
-}
-
-#pause {
-  position: absolute;
-  left: 20%;
-  top: 60%;
-  font-size: 50px;
-  font-family: "Carter One", cursive;
-  color: white;
-}
-
-#pause:hover {
-  color: #fef102;
-  cursor: pointer;
 }
 
 #paused-options {
@@ -192,6 +178,18 @@ h1 {
 }
 
 #game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#permanent-view {
+  width: 920px;
+  height: 620px;
+  position: relative;
+}
+
+#game-view {
   display: none;
 }
 
@@ -201,10 +199,25 @@ canvas {
   border-color: #0571ff;
 }
 
-#score {
+#score-div, #pause {
   position: absolute;
-  left: 20%;
+  left: 50px;
+}
+
+#score-div {
+  top: 0px;
+}
+
+#pause {
+  bottom: 0px;
+}
+
+#pause p {
   font-size: 50px;
+}
+
+#score, #pause {
   font-family: "Carter One", cursive;
   color: white;
+  font-size: 50px;
 }

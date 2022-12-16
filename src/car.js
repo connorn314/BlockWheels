@@ -4,18 +4,20 @@ import Track from "./track";
 export default class Car extends MovingObject {
     constructor(game){
         super(game);
-        this.positionX = this.dimensions.width / 4
+        this.positionX = this.dimensions.width / 4;
         this.velocityX = CONSTANTS.VEL_X;
         this.velocityY = CONSTANTS.VEL_Y;
-        this.vector = 0
+        this.accelerationX = 0;
+        this.accelerationY = 0;
+        this.vector = 0;
         this.jumpPower = .5;
         this.grounded = false;
         this.rotation = true;
         this.landing = false;
-        this.spriteNum = 0
-        this.stagger = 5
-        this.hypotenuse = Math.sqrt(Math.pow(CONSTANTS.CAR_WIDTH/2, 2) + Math.pow(CONSTANTS.CAR_HEIGHT/2, 2))
-        this.theta = Math.atan((CONSTANTS.CAR_HEIGHT/2)/(CONSTANTS.CAR_WIDTH/2))
+        this.spriteNum = 0;
+        this.stagger = 5;
+        this.hypotenuse = Math.sqrt(Math.pow(CONSTANTS.CAR_WIDTH/2, 2) + Math.pow(CONSTANTS.CAR_HEIGHT/2, 2));
+        this.theta = Math.atan((CONSTANTS.CAR_HEIGHT/2)/(CONSTANTS.CAR_WIDTH/2));
     }
 
     animate(){
@@ -26,7 +28,7 @@ export default class Car extends MovingObject {
         this.isBoundBy();
         this.landedOnTrack();
         this.landProperly();
-        if (this.game.keyState.forward === true){
+        if ((this.velocityX > 0 && this.grounded) || (this.game.keyState.forward === true && !this.grounded)){
             this.stagger -= 1
             if (this.stagger === 0){
                 this.stagger = 5
@@ -36,29 +38,33 @@ export default class Car extends MovingObject {
     }
 
     move(){
+        if (this.velocityX < 10 && this.game.keyState.forward === true && this.grounded === true) {
+            this.accelerationX = .1
+        } else if ((this.velocityX < 10 && this.velocityX > 0 && this.game.keyState.forward === false && this.grounded === true) || this.velocityX >= 10 && this.grounded) {
+            this.accelerationX = -.05
+        } else {
+            this.accelerationX = 0
+        }
+
         if (this.grounded === false){
             if (this.velocityY < CONSTANTS.TERMINAL_VEL){
                 this.velocityY += CONSTANTS.GRAVITY;
             } 
-            if ((this.game.keyState.forward === true)){
-                this.velocityX = 6;
-            } else {
-                this.velocityX = 0;
-            }
+
         } else {
 
-            let x = 6 * Math.cos(this.landingVector)
-            let y = 6 * Math.tan(this.landingVector)
+            let hyp = this.velocityX / Math.cos(this.landingVector)
 
-            if ((this.game.keyState.forward === true)){
-                this.velocityX = x;
-                this.velocityY = y;
-            } else {
-                this.velocityX = 0;
-            }
+            let x = (hyp) * Math.cos(this.landingVector)
+            let y = (hyp) * Math.tan(this.landingVector)
+
+            this.velocityX = x;
+            this.velocityY = y;
         }
+
         this.positionX += this.velocityX;
         this.positionY += this.velocityY;
+        this.velocityX += this.accelerationX;
     }
 
     jump(){
