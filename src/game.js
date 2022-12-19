@@ -58,6 +58,7 @@ export default class BotWheels {
     }
 
     restartButton() {
+        console.log(this.running, 'here at restart button top')
         this.gameIsOver = false;
         while (this.tracks.length > 13){
             this.tracks.pop()
@@ -69,6 +70,7 @@ export default class BotWheels {
         this.car.velocityY = 0
         this.car.vector = 0
         this.scoreboard.accumulatedScore = 0
+        this.unpause();
     }
 
     pause(){
@@ -76,6 +78,7 @@ export default class BotWheels {
     }
 
     unpause(){
+        console.log(this.running, 'top of unpause')
         if (this.running === false){
             this.play()
         }
@@ -84,6 +87,7 @@ export default class BotWheels {
     gameOver(){
         this.finalScore.innerText = `Final Score: ${this.scoreboard.keepScore()}`;
         this.gameIsOver = true
+        this.pause()
         this.score.style.display = "none"
         this.pauseButton.style.display = "none"
         this.gameOverElement.style.display = "flex"
@@ -102,7 +106,10 @@ export default class BotWheels {
     }
 
     play() {
+        console.log("top of play?")
         this.running = true;
+        console.log(this.running, "should be running from line above")
+        this.gameIsOver = false;
         this.animate();
     }
 
@@ -176,28 +183,28 @@ export default class BotWheels {
     }
     
     keyDown(e){ // dry up this code
-        if (this.gameIsOver === false){
-            if (e.code === "Space" && this.running === true){
+        if (this.running ===  true){
+            if (e.code === "Space"){
                 this.keyState.spaceDown = true;
-            } else if (e.code === "ArrowLeft" && this.running === true){
+            } else if (e.code === "ArrowLeft"){
                 this.keyState.leftDown = true;
-            }  else if (e.code === "ArrowRight" && this.running === true){
+            }  else if (e.code === "ArrowRight"){
                 this.keyState.rightDown = true;
-            } else if (e.code === "ArrowUp" && this.running ===  true){
+            } else if (e.code === "ArrowUp"){
                 this.keyState.forward = true;
             }
         }
     }
 
     keyUp(e){ // dry up this code
-        if (e.code === "Space" && this.running === true){
+        if (e.code === "Space" ){
             this.keyState.spaceRelease = true;
             this.keyState.spaceDown = false;
-        } else if (e.code === "ArrowLeft" && this.running === true){
+        } else if (e.code === "ArrowLeft" ){
             this.keyState.leftDown = false;
-        } else if (e.code === "ArrowRight" && this.running === true){
+        } else if (e.code === "ArrowRight" ){
             this.keyState.rightDown = false;
-        } else if (e.code === "ArrowUp" && this.running ===  true){
+        } else if (e.code === "ArrowUp" ){
             this.keyState.forward = false;
         }
         

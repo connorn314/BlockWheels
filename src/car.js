@@ -7,6 +7,7 @@ export default class Car extends MovingObject {
         this.positionX = this.dimensions.width / 4;
         this.velocityX = CONSTANTS.VEL_X;
         this.velocityY = CONSTANTS.VEL_Y;
+        this.falling = 60
         this.accelerationX = 0;
         this.accelerationY = 0;
         this.vector = 0;
@@ -34,6 +35,14 @@ export default class Car extends MovingObject {
                 this.stagger = 5
                 this.spriteNum += 1
             }
+        }
+        if (this.velocityY > 11){
+            this.falling -= 1
+        } else {
+            this.falling = 60
+        }
+        if (this.falling === 0){
+            this.game.gameOver();
         }
     }
 
@@ -83,12 +92,12 @@ export default class Car extends MovingObject {
     }
 
     rotateCar(){
-        if (this.game.keyState.leftDown === true && this.grounded === false){
+        if (this.game.keyState.leftDown === true && this.grounded === false && this.landing === false){
             this.rotation = true
-            this.vector += -Math.PI / 64
-        } else if (this.game.keyState.rightDown === true && this.grounded === false){
+            this.vector += -Math.PI / 32
+        } else if (this.game.keyState.rightDown === true && this.grounded === false && this.landing === false){
             this.rotation = true
-            this.vector += Math.PI / 64
+            this.vector += Math.PI / 32
         } else {
             this.rotation = false
             // this.vector = 0
@@ -160,14 +169,14 @@ export default class Car extends MovingObject {
 
     landedOnTrack(){
         for (let i = 0; i < this.game.tracks.length; i++){
-            let collisionObj = this.isCollidedWith(this.game.tracks[i])
+            let collisionObj = this.isCollidedWith(this.game.tracks[i]) // answer is here as to how to check if the car fell off map
             if (collisionObj !== false){
                 this.velocityY = 0;
                 this.landingVector = this.game.tracks[i].vector
-                if (Object.keys(collisionObj).length === 2){
+                if (Object.keys(collisionObj).length === 2 && Object.keys(collisionObj).includes("bottomRight") && Object.keys(collisionObj).includes("bottomLeft")){
                     this.landing = false;
                     this.grounded = true;
-                    this.vector = this.landingVector
+                    this.vector = this.landingVector;
                 } else {
                     this.landing = collisionObj;
                     this.grounded = false;
@@ -182,26 +191,27 @@ export default class Car extends MovingObject {
 
     landProperly(){
         if (this.landing !== false){
-            let currentVec = this.vector % (Math.PI * 2)
-            if (this.landing.hasOwnProperty('bottomRight')){
+            // let currentVec = this.vector % (Math.PI * 2)
+            if (this.landing.hasOwnProperty('bottomRight') || this.landing.hasOwnProperty('bottomLeft')){
                 // console.log("tip left")
-                if (currentVec - (Math.PI/32) > this.landingVector){
+                // if (currentVec - (Math.PI/32) > this.landingVector){
                     this.vector = this.landingVector    
-                } else {
-                    this.rotation = true
-                    this.vector += -Math.PI / 64 
-                }
+                // } else {
+                    // this.rotation = true
+                    // this.vector += -Math.PI / 64 
+                // }
 
-            } else if (this.landing.hasOwnProperty('bottomLeft')){
+            // } else if (this.landing.hasOwnProperty('bottomLeft')){
                 // console.log("tip right")
-                if (currentVec + (Math.PI/32) < this.landingVector){
-                    this.vector = this.landingVector
-                } else {
-                    this.rotation = true
-                    this.vector += Math.PI / 64
-                }
+                // if (currentVec + (Math.PI/32) < this.landingVector){
+                    // this.vector = this.landingVector
+                // } else {
+                    // this.rotation = true
+                    // this.vector += Math.PI / 64
+                // }
             } else {
                 this.game.gameOver();
+                this.landing = false
             }
         }
     }
