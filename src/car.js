@@ -47,9 +47,9 @@ export default class Car extends MovingObject {
     }
 
     move(){
-        if (this.velocityX < 10 && this.game.keyState.forward === true && this.grounded === true) {
+        if (this.velocityX < 8 && this.game.keyState.forward === true && this.grounded === true) {
             this.accelerationX = .1
-        } else if ((this.velocityX < 10 && this.velocityX > 0 && this.game.keyState.forward === false && this.grounded === true) || this.velocityX >= 10 && this.grounded) {
+        } else if ((this.velocityX < 8 && this.velocityX > 0 && this.game.keyState.forward === false && this.grounded === true) || this.velocityX >= 8 && this.grounded) {
             this.accelerationX = -.05
         } else {
             this.accelerationX = 0
@@ -78,8 +78,8 @@ export default class Car extends MovingObject {
 
     jump(){
         if (this.game.keyState.spaceDown === true){
-            if (this.jumpPower <= 1.8){
-                this.jumpPower += .1;
+            if (this.jumpPower <= 1.6){
+                this.jumpPower += .2;
             } 
         } else if (this.game.keyState.spaceRelease === true) {
             if (this.grounded === true){
@@ -191,24 +191,8 @@ export default class Car extends MovingObject {
 
     landProperly(){
         if (this.landing !== false){
-            // let currentVec = this.vector % (Math.PI * 2)
             if (this.landing.hasOwnProperty('bottomRight') || this.landing.hasOwnProperty('bottomLeft')){
-                // console.log("tip left")
-                // if (currentVec - (Math.PI/32) > this.landingVector){
                     this.vector = this.landingVector    
-                // } else {
-                    // this.rotation = true
-                    // this.vector += -Math.PI / 64 
-                // }
-
-            // } else if (this.landing.hasOwnProperty('bottomLeft')){
-                // console.log("tip right")
-                // if (currentVec + (Math.PI/32) < this.landingVector){
-                    // this.vector = this.landingVector
-                // } else {
-                    // this.rotation = true
-                    // this.vector += Math.PI / 64
-                // }
             } else {
                 this.game.gameOver();
                 this.landing = false

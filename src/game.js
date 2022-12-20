@@ -58,7 +58,6 @@ export default class BotWheels {
     }
 
     restartButton() {
-        console.log(this.running, 'here at restart button top')
         this.gameIsOver = false;
         while (this.tracks.length > 13){
             this.tracks.pop()
@@ -78,7 +77,6 @@ export default class BotWheels {
     }
 
     unpause(){
-        console.log(this.running, 'top of unpause')
         if (this.running === false){
             this.play()
         }
@@ -95,7 +93,7 @@ export default class BotWheels {
         this.gameOverElement.style.flexDirection = "column";
         this.gameOverElement.style.alignItems = "center";
         this.gameOverElement.style.left = "35%";
-        this.gameOverElement.style.top = "24%";
+        this.gameOverElement.style.top = "16%";
         this.gameOverElement.style.width = "30%";
         this.gameOverElement.style.backgroundColor = "#f01924";
         this.gameOverElement.style.border = "10px";
@@ -106,9 +104,7 @@ export default class BotWheels {
     }
 
     play() {
-        console.log("top of play?")
         this.running = true;
-        console.log(this.running, "should be running from line above")
         this.gameIsOver = false;
         this.animate();
     }

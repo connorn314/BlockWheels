@@ -19,12 +19,17 @@ a {
 
 body {
     background-color: rgb(240, 240, 240);
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../Blockwheels-background.jpeg');
+    background-size: contain;
 }
 
 #links {
     position: absolute;
     right: 50px;
+    z-index: 3;
 }
 
 #github, #linkedin {
@@ -121,6 +126,11 @@ h1 {
 }
 #final-score {
     font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-break: loose;
+    text-align: center;
 }
 #restart-after-game {
     font-size: 30px;
@@ -224,4 +234,12 @@ canvas {
     font-family: 'Carter One', cursive;
     color: white;
     font-size: 50px;
+}
+
+#link-list-gg {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-bottom: 20px;
+
 }
