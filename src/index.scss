@@ -18,14 +18,10 @@ a {
 }
 
 body {
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(188, 195, 253);
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url('../Blockwheels-background.jpeg');
-    background-size: contain;
-    width: 100vw;
-    height: 100vh;
 }
 
 #links {
@@ -196,7 +192,12 @@ h1 {
 #game {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    background-image: url('../Blockwheels-background.jpeg');
+    background-size: contain;
+    width: 99vw;
+    height: 97.5vh;
 }
 
 #permanent-view {
